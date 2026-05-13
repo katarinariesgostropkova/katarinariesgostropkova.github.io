@@ -1,0 +1,307 @@
+---
+import LogoMark from './LogoMark.astro';
+
+const year = new Date().getFullYear();
+const navItems = [
+  { href: '/',         label: 'Home' },
+  { href: '/work',     label: 'Work' },
+  { href: '/about',    label: 'About' },
+  { href: '/notebook', label: 'Notebook' },
+] as const;
+---
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer__inner">
+
+    <!-- Top: Editorial / contact -->
+    <div class="footer__top">
+
+      <p class="footer__eyebrow">Get in touch</p>
+      <h2 class="footer__headline">
+        Let's design something rooted in evidence.
+      </h2>
+      <p class="footer__body">
+        I'm open to senior research and product design roles where craft
+        and rigour both matter. If that sounds like your team, reach out.
+      </p>
+
+      <div class="footer__contact">
+        <a
+          id="footer-email"
+          href="#"
+          class="footer__email-link"
+          aria-label="Send email to Katarina"
+        ><!-- assembled by email-reveal.js --></a>
+        <button
+          id="footer-copy-btn"
+          class="footer__copy-btn"
+          aria-label="Copy email address to clipboard"
+          type="button"
+        >Copy</button>
+      </div>
+
+      <a
+        href="https://www.linkedin.com/in/katarinastropkova/"
+        class="footer__linkedin"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Connect on LinkedIn (opens in new tab)"
+      >Connect on LinkedIn →</a>
+
+    </div>
+
+    <!-- Bottom: Brand / nav / copyright -->
+    <div class="footer__bottom">
+
+      <div class="footer__brand">
+        <LogoMark size={48} variant="dark" />
+        <span class="footer__brand-name">Katarina Riesgo Stropkova</span>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <ul class="footer__nav-list">
+          {navItems.map(({ href, label }) => (
+            <li>
+              <a href={href} class="footer__nav-link">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <p class="footer__copyright">
+        &copy; {year} Katarina Riesgo Stropkova
+      </p>
+
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  import '../scripts/email-reveal.js';
+</script>
+
+<style>
+/* ── Footer shell — full-width background + teal hairline ── */
+.site-footer {
+  width: 100%;
+  background: var(--color-deep-tide);
+  position: relative;
+}
+
+.site-footer::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--color-teal) 40%,
+    var(--color-teal) 60%,
+    transparent 100%
+  );
+}
+
+/* ── Inner container — centres content up to 1200px ── */
+.footer__inner {
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: 0 var(--padding-desktop);
+}
+
+@media (max-width: 1023px) {
+  .footer__inner {
+    padding: 0 var(--padding-tablet);
+  }
+}
+
+@media (max-width: 767px) {
+  .footer__inner {
+    padding: 0 var(--padding-mobile);
+  }
+}
+
+/* ── Top section — single column by default ── */
+.footer__top {
+  display: block;
+  padding: var(--space-16) 0;
+}
+
+/* ── Two-column grid at ≥1024px ── */
+@media (min-width: 1024px) {
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: var(--space-12);
+    row-gap: var(--space-6);
+    align-items: end;
+  }
+
+  .footer__eyebrow,
+  .footer__headline,
+  .footer__body {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  .footer__contact,
+  .footer__linkedin {
+    grid-column: 2;
+    justify-self: end;
+    margin-bottom: 0;
+  }
+}
+
+.footer__eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-medium);
+  color: var(--color-teal);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  margin-bottom: var(--space-4);
+}
+
+.footer__headline {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-section);
+  font-weight: var(--weight-light);
+  color: var(--text-dark-100);
+  line-height: var(--leading-snug);
+  max-width: 540px;
+  margin-bottom: var(--space-6);
+}
+
+.footer__body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body);
+  font-weight: var(--weight-regular);
+  color: var(--text-dark-072);
+  line-height: var(--leading-normal);
+  max-width: 480px;
+  margin-bottom: var(--space-8);
+}
+
+.footer__contact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.footer__email-link {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body);
+  font-weight: var(--weight-regular);
+  color: var(--text-dark-085);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer__email-link:hover {
+  color: var(--text-dark-100);
+}
+
+.footer__copy-btn {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-medium);
+  color: var(--color-teal);
+  background: transparent;
+  border: var(--border-hairline) var(--color-teal);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  min-height: 32px;
+  transition: color var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
+}
+
+.footer__copy-btn:hover {
+  color: var(--text-dark-100);
+  border-color: var(--text-dark-045);
+}
+
+.footer__linkedin {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body);
+  font-weight: var(--weight-regular);
+  color: var(--text-dark-065);
+  text-decoration: none;
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.footer__linkedin:hover {
+  color: var(--text-dark-100);
+}
+
+@media (max-width: 767px) {
+  .footer__top {
+    padding: var(--space-10) 0;
+  }
+}
+
+/* ── Bottom bar ── */
+.footer__bottom {
+  border-top: var(--border-hairline) var(--border-dark-soft);
+  padding: var(--space-8) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+@media (max-width: 767px) {
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.footer__brand-name {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-regular);
+  color: var(--text-dark-065);
+  letter-spacing: var(--tracking-normal);
+}
+
+.footer__nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.footer__nav-link {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-regular);
+  color: var(--text-dark-050);
+  text-decoration: none;
+  letter-spacing: var(--tracking-body);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.footer__nav-link:hover {
+  color: var(--text-dark-085);
+}
+
+.footer__copyright {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-regular);
+  color: var(--text-dark-045);
+  letter-spacing: var(--tracking-normal);
+}
+</style>

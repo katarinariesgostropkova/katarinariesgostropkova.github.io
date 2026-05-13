@@ -1,0 +1,27 @@
+---
+interface Props {
+  filename: string;
+}
+const { filename } = Astro.props;
+---
+
+<div class="inline-image-placeholder">
+  <p class="placeholder-label">[ Image pending: {filename} ]</p>
+</div>
+
+<style>
+.inline-image-placeholder {
+  background: var(--color-linen);
+  border: 1.5px dashed rgba(43, 165, 165, 0.35);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12) var(--space-8);
+  text-align: center;
+}
+
+.placeholder-label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  color: var(--text-muted);
+  font-style: italic;
+}
+</style>

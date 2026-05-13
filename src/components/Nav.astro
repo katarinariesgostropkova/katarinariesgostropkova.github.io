@@ -1,0 +1,82 @@
+---
+const pathname = Astro.url.pathname;
+
+const isActive = (href: string): boolean => {
+  if (href === '/') return pathname === '/';
+  return pathname === href || pathname.startsWith(href + '/');
+};
+
+const navItems = [
+  { href: '/',         label: 'Home' },
+  { href: '/work',     label: 'Work' },
+  { href: '/about',    label: 'About' },
+  { href: '/notebook', label: 'Notebook' },
+] as const;
+---
+
+<nav class="desktop-nav" aria-label="Main navigation">
+  <ul class="desktop-nav__list">
+    {navItems.map(({ href, label }) => (
+      <li class="desktop-nav__item">
+        <a
+          href={href}
+          class:list={['desktop-nav__link', isActive(href) && 'desktop-nav__link--active']}
+          aria-current={isActive(href) ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+.desktop-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-canvas);
+  border: var(--border-hairline) var(--border-medium);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-3);
+}
+
+/* Hidden at mobile — hamburger takes over */
+@media (max-width: 767px) {
+  .desktop-nav {
+    display: none;
+  }
+}
+
+.desktop-nav__list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  margin: 0;
+}
+
+.desktop-nav__link {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-regular);
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  letter-spacing: var(--tracking-body);
+  transition: color var(--duration-base) var(--ease-out);
+  white-space: nowrap;
+}
+
+.desktop-nav__link:hover {
+  color: var(--text-primary);
+}
+
+.desktop-nav__link--active {
+  color: var(--text-primary);
+  background: var(--color-linen);
+}
+</style>

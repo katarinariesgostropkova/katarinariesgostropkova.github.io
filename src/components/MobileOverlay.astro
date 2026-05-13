@@ -1,0 +1,127 @@
+---
+import LogoMark from './LogoMark.astro';
+
+const pathname = Astro.url.pathname;
+
+const isActive = (href: string): boolean => {
+  if (href === '/') return pathname === '/';
+  return pathname === href || pathname.startsWith(href + '/');
+};
+
+const navItems = [
+  { href: '/',         label: 'Home' },
+  { href: '/work',     label: 'Work' },
+  { href: '/about',    label: 'About' },
+  { href: '/notebook', label: 'Notebook' },
+] as const;
+---
+
+<div
+  id="mobile-overlay"
+  class="mobile-overlay"
+  role="dialog"
+  aria-label="Main navigation"
+  aria-modal="true"
+  aria-hidden="true"
+>
+  <button class="mobile-overlay__close" data-overlay-close aria-label="Close navigation">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <div class="mobile-overlay__ghost" aria-hidden="true">
+    <LogoMark size={300} variant="dark" decorative />
+  </div>
+
+  <nav class="mobile-overlay__nav" aria-label="Mobile navigation">
+    <ul class="mobile-overlay__list">
+      {navItems.map(({ href, label }, index) => (
+        <li class="mobile-overlay__item" data-nav-index={index}>
+          <a
+            href={href}
+            class:list={['mobile-overlay__link', isActive(href) && 'mobile-overlay__link--active']}
+            aria-current={isActive(href) ? 'page' : undefined}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</div>
+
+<style>
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--color-deep-tide);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-8);
+  /* Hidden state — toggled by mobile-overlay.js via .mobile-overlay--open */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  /* transition: deferred to animation phase ③ */
+}
+
+.mobile-overlay--open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-overlay__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  /* 44×44 touch target via explicit min dimensions */
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dark-085);
+  border-radius: var(--radius-sm);
+}
+
+.mobile-overlay__ghost {
+  position: absolute;
+  bottom: -10%;
+  right: -5%;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.mobile-overlay__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.mobile-overlay__link {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 24px; /* spec-required; no token exists at this stop — flagged in handoff */
+  font-weight: var(--weight-light);
+  color: var(--text-dark-085);
+  text-decoration: none;
+  letter-spacing: var(--tracking-tight);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.mobile-overlay__link:hover,
+.mobile-overlay__link--active {
+  color: var(--text-dark-100);
+}
+</style>

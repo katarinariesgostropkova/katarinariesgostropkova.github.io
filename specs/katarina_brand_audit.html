@@ -1,0 +1,618 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .audit {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    color: var(--color-text-primary);
+    padding: 0 0 2rem;
+  }
+
+  .brand-header {
+    background: #1C2B3A;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .brand-mark {
+    flex-shrink: 0;
+  }
+
+  .brand-name {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    color: rgba(247,246,242,1);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+
+  .brand-sub {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(247,246,242,0.5);
+  }
+
+  .brand-tagline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 13px;
+    color: #2BA5A5;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    margin-bottom: 16px;
+  }
+
+  .section { margin-bottom: 28px; }
+
+  /* Color grid */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .color-chip {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 0.5px solid var(--color-border-tertiary);
+  }
+
+  .chip-block { height: 48px; }
+  .chip-info {
+    padding: 6px 8px;
+    background: var(--color-background-primary);
+  }
+  .chip-name {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .chip-hex {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    color: var(--color-text-secondary);
+    display: block;
+  }
+  .chip-role {
+    font-size: 8px;
+    color: #2BA5A5;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* Type scale */
+  .type-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 100px;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .type-meta {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+  .type-token {
+    font-size: 8px;
+    background: #EAE9E4;
+    color: #2BA5A5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    display: inline-block;
+  }
+
+  /* Rules grid */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .rule-card {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 8px;
+    padding: 12px 14px;
+    background: var(--color-background-secondary);
+  }
+  .rule-title {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  .rule-body {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+  .rule-body code {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    background: var(--color-background-primary);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #2BA5A5;
+  }
+
+  /* Image audit */
+  .audit-item {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .audit-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--color-background-secondary);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .audit-tag {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 100px;
+  }
+  .tag-thumb { background: rgba(43,165,165,0.12); color: #2BA5A5; }
+  .tag-inline { background: rgba(212,121,122,0.12); color: #D4797A; }
+  .tag-ok { background: rgba(15,110,86,0.08); color: #0F6E56; }
+  .tag-fix { background: rgba(192,57,43,0.08); color: #C0392B; }
+
+  .audit-title {
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--color-text-primary);
+  }
+
+  .audit-body { padding: 14px 16px; }
+
+  .check-list { list-style: none; }
+  .check-list li {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    padding: 5px 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .icon { flex-shrink: 0; font-size: 11px; margin-top: 1px; }
+  .ok { color: #0F6E56; }
+  .warn { color: #D4797A; }
+  .info { color: #2BA5A5; }
+
+  /* Radius preview */
+  .radius-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .radius-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .radius-box {
+    width: 56px;
+    height: 36px;
+    background: #1C2B3A;
+    opacity: 0.8;
+  }
+  .radius-lbl {
+    font-size: 9px;
+    color: var(--color-text-secondary);
+    text-align: center;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Shadow demo */
+  .shadow-demo {
+    display: flex;
+    gap: 14px;
+  }
+  .shadow-card {
+    flex: 1;
+    padding: 14px;
+    border-radius: 12px;
+    background: var(--color-background-primary);
+    border: 0.5px solid rgba(28,43,58,0.08);
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    text-align: center;
+  }
+
+  /* Image spec cards */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .spec-card {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .spec-preview {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .spec-thumb-preview {
+    background: #F7F6F2;
+    position: relative;
+  }
+  .spec-inline-preview {
+    background: #F7F6F2;
+  }
+  .spec-info {
+    padding: 10px 12px;
+    background: var(--color-background-secondary);
+    border-top: 0.5px solid var(--color-border-tertiary);
+  }
+  .spec-title { font-size: 10px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .spec-detail { font-size: 9px; color: var(--color-text-secondary); line-height: 1.6; font-family: 'Courier New', monospace; }
+
+  /* Thumb mock */
+  .thumb-mock {
+    width: 120px;
+    height: 68px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid rgba(28,43,58,0.1);
+    box-shadow: 0 2px 12px rgba(28,43,58,0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .thumb-bar {
+    height: 10px;
+    background: #1C2B3A;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 0 6px;
+  }
+  .thumb-dot { width: 3px; height: 3px; border-radius: 50%; background: #2BA5A5; }
+  .thumb-body {
+    flex: 1;
+    padding: 5px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    justify-content: center;
+  }
+  .thumb-line { height: 3px; background: rgba(28,43,58,0.12); border-radius: 2px; }
+
+  /* Divider */
+  .divider {
+    height: 0.5px;
+    background: linear-gradient(to right, transparent, rgba(43,165,165,0.4) 30%, rgba(43,165,165,0.4) 70%, transparent);
+    margin: 24px 0;
+  }
+
+  .footnote {
+    font-size: 9px;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
+
+<div class="audit">
+
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <svg class="brand-mark" width="32" height="40" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60 8C60 8 14 58 14 96C14 126 35 148 60 148C85 148 106 126 106 96C106 58 60 8 60 8Z" fill="rgba(247,246,242,0.08)" stroke="rgba(247,246,242,0.45)" stroke-width="2"/>
+      <ellipse cx="60" cy="100" rx="18" ry="26" fill="none" stroke="#2BA5A5" stroke-width="9"/>
+      <circle cx="60" cy="70" r="8" fill="#D4797A"/>
+    </svg>
+    <div>
+      <div class="brand-name">Katarina</div>
+      <div class="brand-sub">Riesgo Stropkova</div>
+    </div>
+    <div class="brand-tagline">Research-Led Product Designer</div>
+  </div>
+
+  <!-- Color Palette -->
+  <div class="section">
+    <div class="section-label">① Color palette — extracted from design system</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="chip-block" style="background:#1C2B3A;"></div>
+        <div class="chip-info">
+          <span class="chip-name">Deep Tide</span>
+          <span class="chip-hex">#1C2B3A</span>
+          <span class="chip-role">Primary dark surface</span>
+        </div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-block" style="background:#F7F6F2;border-bottom:0.5px solid rgba(28,43,58,0.08);"></div>
+        <div class="chip-info">
+          <span class="chip-name">Warm Canvas</span>
+          <span class="chip-hex">#F7F6F2</span>
+          <span class="chip-role">Primary light surface</span>
+        </div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-block" style="background:#EAE9E4;"></div>
+        <div class="chip-info">
+          <span class="chip-name">Linen</span>
+          <span class="chip-hex">#EAE9E4</span>
+          <span class="chip-role">Secondary surface</span>
+        </div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-block" style="background:#2BA5A5;"></div>
+        <div class="chip-info">
+          <span class="chip-name">Teal</span>
+          <span class="chip-hex">#2BA5A5</span>
+          <span class="chip-role">Primary accent</span>
+        </div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-block" style="background:#D4797A;"></div>
+        <div class="chip-info">
+          <span class="chip-name">Dusty Rose</span>
+          <span class="chip-hex">#D4797A</span>
+          <span class="chip-role">Secondary accent</span>
+        </div>
+      </div>
+      <div class="color-chip">
+        <div class="chip-block" style="background:#6B7A8D;"></div>
+        <div class="chip-info">
+          <span class="chip-name">Slate</span>
+          <span class="chip-hex">#6B7A8D</span>
+          <span class="chip-role">Secondary text (light only)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="section">
+    <div class="section-label">② Typography — two families, five weights total</div>
+    <div class="type-row">
+      <div class="type-meta">Cormorant Garamond<br>300 · Italic</div>
+      <div style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-style:italic;font-size:28px;color:#1C2B3A;line-height:1.15;">Headlines &amp; editorial</div>
+      <div><span class="type-token">--font-serif</span></div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">Jost<br>300 · 400 · 500</div>
+      <div style="font-family:'Jost','Helvetica Neue',sans-serif;font-weight:400;font-size:14px;color:#1C2B3A;letter-spacing:0.04em;">All UI, body, nav, labels, buttons</div>
+      <div><span class="type-token">--font-sans</span></div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">Eyebrow labels<br>Jost 500 caps</div>
+      <div style="font-family:'Jost','Helvetica Neue',sans-serif;font-weight:500;font-size:10px;color:#6B7A8D;letter-spacing:0.20em;text-transform:uppercase;">Research-led product designer</div>
+      <div><span class="type-token">--text-eyebrow</span></div>
+    </div>
+  </div>
+
+  <!-- Border Radius -->
+  <div class="section">
+    <div class="section-label">③ Shape language — rounded, soft, approachable</div>
+    <div class="radius-row">
+      <div class="radius-item"><div class="radius-box" style="border-radius:0px;"></div><div class="radius-lbl">0px<br>none</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:4px;"></div><div class="radius-lbl">4px<br>sm</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:8px;"></div><div class="radius-lbl">8px<br>md</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:12px;"></div><div class="radius-lbl">12px<br>lg</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:16px;"></div><div class="radius-lbl">16px<br>xl</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:100px;"></div><div class="radius-lbl">100px<br>pill</div></div>
+    </div>
+  </div>
+
+  <!-- Shadows -->
+  <div class="section">
+    <div class="section-label">④ Shadows — minimal, functional only</div>
+    <div class="shadow-demo">
+      <div class="shadow-card" style="box-shadow:0 1px 0 rgba(28,43,58,0.08);">
+        <div style="font-size:10px;font-weight:500;color:#1C2B3A;margin-bottom:4px;">Header shadow</div>
+        <code style="font-size:9px;color:#6B7A8D;font-family:'Courier New',monospace;">0 1px 0 rgba(28,43,58,0.08)</code>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 2px 12px rgba(28,43,58,0.06);">
+        <div style="font-size:10px;font-weight:500;color:#1C2B3A;margin-bottom:4px;">Card shadow</div>
+        <code style="font-size:9px;color:#6B7A8D;font-family:'Courier New',monospace;">0 2px 12px rgba(28,43,58,0.06)</code>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 8px 32px rgba(28,43,58,0.24);">
+        <div style="font-size:10px;font-weight:500;color:#1C2B3A;margin-bottom:4px;">Overlay shadow</div>
+        <code style="font-size:9px;color:#6B7A8D;font-family:'Courier New',monospace;">0 8px 32px rgba(28,43,58,0.24)</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Image Audit -->
+  <div class="section">
+    <div class="section-label">⑤ Image audit — portfolio use cases</div>
+
+    <!-- Thumbnail spec -->
+    <div class="audit-item">
+      <div class="audit-header">
+        <span class="audit-tag tag-thumb">Thumbnail</span>
+        <span class="audit-title">Use case card thumbnails — left panel of work cards</span>
+      </div>
+      <div class="audit-body">
+        <ul class="check-list">
+          <li><span class="icon ok">✓</span><span>Background must use <strong>Warm Canvas #F7F6F2</strong> or <strong>Linen #EAE9E4</strong> — never white #FFFFFF or arbitrary off-whites. Screenshots on pure white will look cold and disconnected from the site.</span></li>
+          <li><span class="icon ok">✓</span><span>Content area padding: <strong>24px uniform inset</strong> on all sides (--space-6). The mockup or graphic must breathe inside the frame.</span></li>
+          <li><span class="icon warn">!</span><span>Border radius on the thumbnail container must match card's <strong>--radius-lg (12px)</strong>. Any screenshot placed as a flat rectangle inside a rounded card will look jarring.</span></li>
+          <li><span class="icon warn">!</span><span>No drop shadows on elements inside the thumbnail — the card already uses <code>--shadow-card</code>. Adding inner shadows doubles the depth and fights the minimal aesthetic.</span></li>
+          <li><span class="icon ok">✓</span><span>Accent colors in thumbnail graphics must be drawn from the palette — <strong>Teal #2BA5A5</strong>, <strong>Rose #D4797A</strong>, or <strong>Deep Tide #1C2B3A</strong> only. Any third-party screenshot should be color-adjusted or placed as-is without added decoration in off-brand colors.</span></li>
+          <li><span class="icon info">→</span><span>Recommended thumbnail aspect ratio: <strong>4:3</strong> (matches the ~340×255px slot visible in the work cards). Do not use 16:9 — it will require letterboxing or cropping that wastes the space.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Inline image spec -->
+    <div class="audit-item">
+      <div class="audit-header">
+        <span class="audit-tag tag-inline">Inline</span>
+        <span class="audit-title">Case study body images — screenshots, flows, annotations</span>
+      </div>
+      <div class="audit-body">
+        <ul class="check-list">
+          <li><span class="icon warn">!</span><span>Every screenshot placed inside a case study must be wrapped in a <strong>browser/device frame or a neutral card container</strong> — bare screenshots with visible OS chrome look unfinished. Use a simple <code>border-radius: 12px; border: 0.5px solid rgba(28,43,58,0.08)</code> container on Warm Canvas.</span></li>
+          <li><span class="icon ok">✓</span><span>Max content width: <strong>900px</strong> (--container-max). Full-bleed images wider than this should be centered with the same max-width or cropped to focus on the relevant UI.</span></li>
+          <li><span class="icon warn">!</span><span>Annotation styles must be consistent throughout the case study. Use only <strong>Teal #2BA5A5</strong> for callout lines, highlights, or numbered markers. Never red, orange, or any off-brand color for annotations.</span></li>
+          <li><span class="icon warn">!</span><span>Caption text must use <strong>Jost 300, 9px, Slate #6B7A8D</strong> (--text-caption). Do not use system default caption styling from Figma or Notion exports — it will conflict.</span></li>
+          <li><span class="icon ok">✓</span><span>For UI flow diagrams and wireframes: background must be <strong>Warm Canvas or Linen</strong>. Dark backgrounds are only acceptable when the product itself is dark-themed.</span></li>
+          <li><span class="icon info">→</span><span>Images should be exported at <strong>2× resolution</strong> (retina-ready). At the 900px max-width, export at 1800px wide, then compress with WebP at 85% quality.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- What's working -->
+    <div class="audit-item">
+      <div class="audit-header">
+        <span class="audit-tag tag-ok">What's working</span>
+        <span class="audit-title">From the portfolio screenshots shared</span>
+      </div>
+      <div class="audit-body">
+        <ul class="check-list">
+          <li><span class="icon ok">✓</span><span>The existing thumbnail for "Building a public presence" correctly uses a light background with simplified UI mockup — good precedent to follow for all thumbnails.</span></li>
+          <li><span class="icon ok">✓</span><span>The locked case study uses <strong>Deep Tide #1C2B3A</strong> as its thumbnail background with centered iconography — consistent with the dark surface token.</span></li>
+          <li><span class="icon ok">✓</span><span>Typography on the homepage is correctly pairing Cormorant Garamond italic for the hero with Jost 300 for body copy — images placed in the case study should not break this rhythm.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Fixes needed -->
+    <div class="audit-item">
+      <div class="audit-header">
+        <span class="audit-tag tag-fix">Common fixes needed</span>
+        <span class="audit-title">Issues to address before publishing images</span>
+      </div>
+      <div class="audit-body">
+        <ul class="check-list">
+          <li><span class="icon warn">!</span><span><strong>Logo SVG file is empty</strong> — the uploaded file contains only a blank 344×207 white rectangle with no paths. Please re-export from Figma as SVG with "Include ids" off and verify the file contains path data before use.</span></li>
+          <li><span class="icon warn">!</span><span><strong>Color contamination risk:</strong> Any screenshot taken from a product with its own color scheme (e.g. Avast's brand colors, NetSuite's UI) should be placed as-is without additional colored frames. Adding a teal or rose border to a screenshot that already has competing brand colors creates visual noise.</span></li>
+          <li><span class="icon warn">!</span><span><strong>Consistent framing:</strong> All thumbnails must use the same frame style — either all use a flat card container or all use a device mockup. Mixing both within the same "Work" grid makes the page feel inconsistent.</span></li>
+          <li><span class="icon warn">!</span><span><strong>Spacing inside thumbnails:</strong> Leave at least 16px (--space-4) between any content element and the thumbnail edge. Elements that bleed to the edge read as cropped, not designed.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image spec summary -->
+  <div class="section">
+    <div class="section-label">⑥ Recommended image specifications</div>
+    <div class="spec-grid">
+      <div class="spec-card">
+        <div class="spec-preview spec-thumb-preview">
+          <div class="thumb-mock">
+            <div class="thumb-bar"><div class="thumb-dot"></div><div class="thumb-dot" style="background:#D4797A;"></div></div>
+            <div class="thumb-body">
+              <div class="thumb-line" style="width:70%;"></div>
+              <div class="thumb-line" style="width:90%;"></div>
+              <div class="thumb-line" style="width:50%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="spec-info">
+          <div class="spec-title">Work card thumbnail</div>
+          <div class="spec-detail">
+            Size: 680×510px (4:3)<br>
+            Export: PNG 2× or WebP 85%<br>
+            Bg: #F7F6F2 or #1C2B3A<br>
+            Padding: 24px all sides<br>
+            Radius: 12px (matches card)
+          </div>
+        </div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-preview spec-inline-preview" style="align-items:flex-end;padding:8px;">
+          <div style="width:100%;height:48px;background:white;border-radius:6px;border:0.5px solid rgba(28,43,58,0.08);display:flex;align-items:center;padding:0 10px;gap:6px;">
+            <div style="flex:1;height:4px;background:rgba(28,43,58,0.08);border-radius:2px;"></div>
+            <div style="width:4px;height:4px;border-radius:50%;background:#2BA5A5;"></div>
+          </div>
+        </div>
+        <div class="spec-info">
+          <div class="spec-title">Case study inline image</div>
+          <div class="spec-detail">
+            Max width: 900px (container)<br>
+            Export: WebP 85% at 1800px<br>
+            Frame: card-radius-lg + border<br>
+            Annotations: Teal #2BA5A5<br>
+            Caption: Jost 300, 9px, Slate
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules -->
+  <div class="section">
+    <div class="section-label">⑦ Hard rules for every image</div>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-title">Never use pure white backgrounds</div>
+        <div class="rule-body">Use <code>#F7F6F2</code> or <code>#EAE9E4</code>. Pure white #FFFFFF breaks the warm canvas tone of the site.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">No off-brand accent colors</div>
+        <div class="rule-body">Annotations, highlights, and UI elements in images must use <code>#2BA5A5</code>, <code>#D4797A</code>, or <code>#1C2B3A</code> only.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">Slate is light-surface only</div>
+        <div class="rule-body"><code>#6B7A8D</code> must never appear on Deep Tide backgrounds. Use <code>#A8B5C2</code> for dark surfaces instead.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">Rose is never used as text</div>
+        <div class="rule-body"><code>#D4797A</code> is decorative and interactive only — buttons, accents, the logo dot. Never for body or caption text in images.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">Font consistency in graphics</div>
+        <div class="rule-body">Any text visible in images (labels, annotations, legends) must use <code>Jost</code> at 300 or 400 weight only.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">One shadow level only</div>
+        <div class="rule-body">Never nest shadows. If the card has a shadow, elements inside it must not also have shadows. Use the <code>--shadow-card</code> token only.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">Brand Audit · Katarina Riesgo Stropkova Portfolio · v1.0 · WCAG 2.1 AA · Jost + Cormorant Garamond</div>
+</div>

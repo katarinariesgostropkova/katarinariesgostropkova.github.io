@@ -1,0 +1,166 @@
+---
+import LogoMark from './LogoMark.astro';
+import Nav from './Nav.astro';
+---
+
+<header class="site-header" role="banner">
+  <div class="header__inner">
+
+    <!-- Left: logo mark + stacked name -->
+    <a href="/" class="header__logo" aria-label="Katarina Riesgo Stropkova — Home">
+      <span class="header__logo-mark">
+        <LogoMark size={26} />
+      </span>
+      <span class="header__name" aria-hidden="true">
+        <span class="header__given">Katarina</span>
+        <span class="header__surname">Riesgo Stropkova</span>
+      </span>
+    </a>
+
+    <!-- Center: desktop floating nav pill (absolutely positioned) -->
+    <Nav />
+
+    <!-- Right: hamburger (mobile only — no CTA ever in header) -->
+    <button
+      class="header__hamburger hamburger-btn"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-overlay"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <line x1="3" y1="6"  x2="21" y2="6"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+  </div>
+</header>
+
+<style>
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  backdrop-filter: blur(var(--header-blur));
+  -webkit-backdrop-filter: blur(var(--header-blur));
+  box-shadow: var(--shadow-header);
+  height: var(--header-height-desktop);
+  transition: height var(--duration-base) var(--ease-out),
+              background var(--duration-base) var(--ease-out);
+}
+
+@media (max-width: 767px) {
+  .site-header {
+    height: var(--header-height-mobile);
+  }
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  height: 100%;
+  padding: 0 var(--padding-desktop);
+}
+
+@media (max-width: 1023px) {
+  .header__inner {
+    padding: 0 var(--padding-tablet);
+  }
+}
+
+@media (max-width: 767px) {
+  .header__inner {
+    padding: 0 var(--padding-mobile);
+  }
+}
+
+/* Logo link */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+/* Responsive logo mark sizing via CSS override — svg size prop sets default */
+:global(.header__logo-mark svg) {
+  height: 26px;
+  width: 21px;
+}
+
+@media (max-width: 767px) {
+  :global(.header__logo-mark svg) {
+    height: 20px;
+    width: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  :global(.header__logo-mark svg) {
+    height: 18px;
+    width: 14px;
+  }
+}
+
+/* Stacked name block */
+.header__name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.header__given {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body);
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+}
+
+.header__surname {
+  font-family: var(--font-sans);
+  font-size: 10px; /* eyebrow stop — no token at this size; flagged in handoff */
+  font-weight: var(--weight-medium);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+/* Surname visibility: hidden only at ≤380px */
+@media (max-width: 380px) {
+  .header__surname {
+    display: none;
+  }
+}
+
+/* Hamburger */
+.header__hamburger {
+  /* 34px visual, 44×44 touch target via min dimensions */
+  min-width: 44px;
+  min-height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+/* Mobile: show hamburger, hide at ≥768px */
+@media (max-width: 767px) {
+  .header__hamburger {
+    display: flex;
+  }
+}
+</style>
+
+<script>
+  import '../scripts/mobile-overlay.js';
+</script>

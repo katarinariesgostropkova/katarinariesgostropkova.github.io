@@ -1,0 +1,19 @@
+.text-hero {
+  font-size: var(--font-size-hero);
+}
+
+.text-section {
+  font-size: var(--font-size-section);
+}
+
+.text-subhead {
+  font-size: var(--font-size-subhead);
+}
+
+.text-body {
+  font-size: var(--font-size-body);
+}
+
+.text-meta {
+  font-size: var(--font-size-meta);
+}

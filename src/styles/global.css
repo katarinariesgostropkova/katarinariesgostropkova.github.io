@@ -1,0 +1,265 @@
+/* Modern Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+:root {
+  /* ── COLOURS ─────────────────────────────────── */
+  --color-deep-tide:    #1C2B3A;
+  --color-canvas:       #F7F6F2;
+  --color-linen:        #EAE9E4;
+  --color-teal:         #2BA5A5;
+  --color-rose:         #D4797A;
+  --color-slate:        #6B7A8D;
+  --color-slate-mid:    #A8B5C2;
+  --color-error:        #C0392B;
+  --color-success:      #0F6E56;
+
+  /* Colour alpha variants */
+  --color-deep-tide-08: rgba(28, 43, 58, 0.08);
+  --color-teal-08:      rgba(43, 165, 165, 0.08);
+  --color-teal-12:      rgba(43, 165, 165, 0.12);
+  --color-teal-40:      rgba(43, 165, 165, 0.40);
+  --color-rose-12:      rgba(212, 121, 122, 0.12);
+
+  /* ── LIGHT SURFACE TEXT ──────────────────────── */
+  --text-primary:   #1C2B3A;   /* 10.4:1 AAA — headlines, nav, buttons       */
+  --text-secondary: #3D4F61;   /*  6.8:1 AA  — sub-headlines, strong body    */
+  --text-body:      #4E6174;   /*  5.4:1 AA  — body paragraphs, intro text   */
+  --text-muted:     #6B7A8D;   /*  4.6:1 AA  — meta, labels — Jost 400 12px+ */
+  --text-subtle:    #8A97A6;   /*  3.5:1     — decorative only, 24px+ serif  */
+
+  /* ── DARK SURFACE TEXT (on #1C2B3A) ─────────── */
+  --text-dark-100: rgba(247, 246, 242, 1.00);   /* 10.4:1 AAA */
+  --text-dark-085: rgba(247, 246, 242, 0.85);   /*  8.8:1 AAA */
+  --text-dark-072: rgba(247, 246, 242, 0.72);   /*  7.4:1 AAA */
+  --text-dark-065: rgba(247, 246, 242, 0.65);   /*  6.7:1 AA  */
+  --text-dark-050: rgba(247, 246, 242, 0.50);   /*  5.1:1 AA  */
+  --text-dark-045: rgba(247, 246, 242, 0.45);   /*  4.6:1 AA — floor */
+
+  /* ── TYPOGRAPHY ──────────────────────────────── */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:  'Jost', 'Helvetica Neue', sans-serif;
+  --weight-light:   300;
+  --weight-regular: 400;
+  --weight-medium:  500;
+
+  /* Five canonical type scale stops */
+  --font-size-hero:    52px;
+  --font-size-section: 28px;
+  --font-size-subhead: 16px;
+  --font-size-body:    14px;
+  --font-size-meta:    12px;
+
+  /* Line heights */
+  --leading-tight:  1.08;
+  --leading-snug:   1.20;
+  --leading-normal: 1.65;
+  --leading-loose:  1.75;
+
+  /* Letter spacing */
+  --tracking-tight:   0.01em;
+  --tracking-normal:  0.02em;
+  --tracking-body:    0.04em;
+  --tracking-wide:    0.08em;
+  --tracking-wider:   0.14em;
+  --tracking-widest:  0.20em;
+
+  /* ── SPACING (4px base) ──────────────────────── */
+  /* Named scale (canonical contract) */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  /* Numbered aliases — used in component specs */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* ── BORDER RADIUS ───────────────────────────── */
+  --radius-none: 0px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-full: 100px;
+
+  /* ── SHADOWS ─────────────────────────────────── */
+  --shadow-header:  0 1px 0 rgba(28, 43, 58, 0.08);
+  --shadow-card:    0 2px 12px rgba(28, 43, 58, 0.06);
+  --shadow-overlay: 0 8px 32px rgba(28, 43, 58, 0.24);
+
+  /* ── MOTION ──────────────────────────────────── */
+  --duration-instant:  100ms;
+  --duration-fast:     150ms;
+  --duration-base:     200ms;
+  --duration-moderate: 300ms;
+  --duration-slow:     400ms;
+  --duration-mark:     800ms;
+  --duration-entry:    1000ms;
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+
+  /* ── LAYOUT CONSTANTS ────────────────────────── */
+  --container-max:    900px;
+  --container-wide:   1200px;
+  --container-narrow: 640px;
+  --padding-desktop:  48px;
+  --padding-tablet:   32px;
+  --padding-mobile:   20px;
+  --header-height-desktop:  60px;
+  --header-height-scrolled: 52px;
+  --header-height-mobile:   56px;
+  --header-bg:          rgba(247, 246, 242, 0.92);
+  --header-bg-scrolled: rgba(247, 246, 242, 1.00);
+  --header-blur:        8px;
+  --footer-bg:          #1C2B3A;
+
+  /* ── BUTTON TOKENS ───────────────────────────── */
+  --btn-rose-bg:     #D4797A;
+  --btn-rose-text:   #F7F6F2;
+  --btn-dark-bg:     #1C2B3A;
+  --btn-dark-text:   #F7F6F2;
+  --btn-ghost-border: rgba(107, 122, 141, 0.35);
+  --btn-ghost-text:  #6B7A8D;
+  --btn-radius:      100px;
+  --btn-min-height:  44px;
+  --btn-padding-sm:  8px 18px;
+  --btn-padding-md:  10px 24px;
+  --btn-padding-lg:  12px 28px;
+
+  /* ── CARD TOKENS ─────────────────────────────── */
+  --card-bg:     #ffffff;
+  --card-border: rgba(28, 43, 58, 0.10);
+  --card-radius: 12px;
+  --case-accent:   #D4797A;
+  --case-accent-w: 3px;
+
+  /* ── TAG TOKENS ──────────────────────────────── */
+  --tag-teal-bg:   rgba(43, 165, 165, 0.12);
+  --tag-teal-text: #2BA5A5;
+  --tag-rose-bg:   rgba(212, 121, 122, 0.12);
+  --tag-rose-text: #D4797A;
+  --tag-slate-bg:  rgba(107, 122, 141, 0.10);
+  --tag-slate-text: #6B7A8D;
+  --tag-padding:   3px 10px;
+  --tag-radius:    100px;
+
+  /* ── BORDER TOKENS ───────────────────────────── */
+  --border-hairline:  0.5px solid;
+  --border-light:     rgba(28, 43, 58, 0.08);
+  --border-medium:    rgba(28, 43, 58, 0.15);
+  --border-dark-soft: rgba(247, 246, 242, 0.08);
+  --border-teal:      rgba(43, 165, 165, 0.40);
+}
+
+/* ── LAYOUT & BASE BODY ──────────────────────────── */
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+main {
+  flex: 1;
+  /* Grows to fill available vertical space, pushing footer to bottom */
+}
+
+/* ── SKIP LINK ───────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-md);
+  background: var(--color-teal);
+  color: var(--text-dark-100);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  z-index: 9999;
+  transition: top var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: var(--space-sm);
+}
+
+/* ── FOCUS VISIBLE ───────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── BUTTON PRIMITIVES ───────────────────────────── */
+/* Reused across Hero CTA, Work section "Explore →",
+   Work page cards, and any future rose-action CTA.    */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-regular);
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  min-height: 44px;
+  padding: 12px 26px;
+  transition: transform var(--duration-fast) var(--ease-out),
+              background-color var(--duration-fast) var(--ease-out);
+  border: none;
+  cursor: pointer;
+}
+
+.btn--rose {
+  background: var(--color-rose);
+  color: var(--color-canvas);
+}
+
+.btn--rose:hover {
+  transform: translateY(-1px);
+}
+
+.btn--rose:active {
+  transform: translateY(0);
+}

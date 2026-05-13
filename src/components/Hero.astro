@@ -1,0 +1,238 @@
+---
+// Copy strings are inlined here for Phase 2A.
+// src/content/copy.md is the canonical source; a future refactor
+// can wire up dynamic loading. Inlined to keep Phase 2A scope
+// contained — no content collection setup needed at this stage.
+---
+
+<section class="hero" aria-labelledby="hero-headline">
+  <div class="hero__inner">
+
+    <p class="hero__eyebrow">Research-led Product Designer</p>
+
+    <h1 id="hero-headline" class="hero__headline">
+      I design for the human brain,<br>
+      not just the <em class="hero__headline-accent">human eye.</em>
+    </h1>
+
+    <p class="hero__subhead">Research tells me why. Design is how I respond.</p>
+
+    <p class="hero__intro">MA in Cognition &amp; Communication. Two years researching users in consumer cybersecurity, five more embedded in enterprise ERP at NetSuite. Now building the products I spent seven years diagnosing.</p>
+
+    <a
+      href="#work"
+      class="btn btn--rose hero__cta"
+      data-cta="hero-primary"
+    >See my work ↓</a>
+
+    <div
+      class="status-rotator"
+      data-status-rotator
+      data-status-active="0"
+      role="region"
+      aria-live="polite"
+      aria-label="Availability status"
+    >
+      <span
+        class="status-rotator__dot"
+        data-status-dot
+        aria-hidden="true"
+      ></span>
+
+      <ul class="status-rotator__list">
+        <li
+          class="status-rotator__item status-rotator__item--active"
+          data-status-item="0"
+        >Open to opportunities</li>
+        <li
+          class="status-rotator__item"
+          data-status-item="1"
+          aria-hidden="true"
+        >
+          <a
+            href="https://www.linkedin.com/in/katarinastropkova/"
+            class="status-rotator__link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Connect on LinkedIn<span class="status-rotator__arrow" aria-hidden="true">→</span></a>
+        </li>
+        <li
+          class="status-rotator__item"
+          data-status-item="2"
+          aria-hidden="true"
+        >
+          <a
+            href="mailto:katka.stropkova@gmail.com"
+            class="status-rotator__link"
+          >Drop me a line<span class="status-rotator__arrow" aria-hidden="true">→</span></a>
+        </li>
+      </ul>
+
+      <button
+        type="button"
+        class="status-rotator__pause"
+        data-status-pause
+        aria-label="Pause status rotation"
+        disabled
+      >
+        <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+          <rect x="2" y="1" width="2" height="8" fill="currentColor"/>
+          <rect x="6" y="1" width="2" height="8" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ── HERO CONTAINER ────────────────────────────── */
+  .hero {
+    background: var(--color-canvas);
+    padding: var(--space-16) 0 var(--space-12);
+  }
+
+  .hero__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--padding-desktop);
+  }
+
+  @media (max-width: 1023px) {
+    .hero__inner {
+      padding: 0 var(--padding-tablet);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero {
+      padding: var(--space-10) 0 var(--space-8);
+    }
+    .hero__inner {
+      padding: 0 var(--padding-mobile);
+    }
+  }
+
+  /* ── EYEBROW ───────────────────────────────────── */
+  .hero__eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-medium);
+    color: var(--color-teal);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    margin-bottom: var(--space-6);
+  }
+
+  /* ── HEADLINE ──────────────────────────────────── */
+  .hero__headline {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-hero);
+    font-weight: var(--weight-light);
+    color: var(--text-primary);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    margin-bottom: var(--space-6);
+    max-width: 880px;
+  }
+
+  @media (max-width: 767px) {
+    .hero__headline {
+      font-size: 36px;
+    }
+  }
+
+  .hero__headline-accent {
+    font-style: italic;
+    color: var(--color-teal);
+  }
+
+  /* ── SUB-HEADLINE ──────────────────────────────── */
+  .hero__subhead {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-subhead);
+    font-weight: var(--weight-regular);
+    color: var(--text-secondary);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-4);
+    max-width: 640px;
+  }
+
+  /* ── INTRO ─────────────────────────────────────── */
+  .hero__intro {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body);
+    font-weight: var(--weight-regular);
+    color: var(--text-body);
+    line-height: var(--leading-loose);
+    margin-bottom: var(--space-10);
+    max-width: 640px;
+  }
+
+  /* ── CTA ───────────────────────────────────────── */
+  .hero__cta {
+    display: inline-flex;
+    margin-bottom: var(--space-8);
+  }
+
+  /* ── STATUS ROTATOR ────────────────────────────── */
+  .status-rotator {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .status-rotator__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-teal);
+    flex-shrink: 0;
+  }
+
+  .status-rotator__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .status-rotator__item {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    /* Jost 400 (--weight-regular) used here intentionally.
+       DESIGN_SYSTEM.md §10 specified Jost 300 at 12px, but §3
+       forbids Jost 300 below 16px. §3 is the authoritative weight
+       rule. See phase-2a.md handoff for full deviation note. */
+    font-weight: var(--weight-regular);
+    color: var(--text-muted);
+  }
+
+  .status-rotator__item[aria-hidden="true"] {
+    display: none;
+  }
+
+  .status-rotator__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .status-rotator__arrow {
+    color: var(--color-rose);
+    margin-left: var(--space-1);
+  }
+
+  .status-rotator__pause {
+    background: transparent;
+    border: none;
+    color: var(--color-teal);
+    padding: var(--space-1);
+    margin-left: var(--space-2);
+    cursor: not-allowed;
+    opacity: 0.4;
+    /* min touch target met via padding; button is 10px icon +
+       8px padding each side = 26px visual. Animation phase will
+       expand hit area if needed once button becomes active. */
+  }
+</style>
