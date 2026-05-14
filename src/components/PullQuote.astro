@@ -1,0 +1,63 @@
+---
+interface Props {
+  quote: string;
+  attribution?: string;
+  variant?: 'rose' | 'teal';
+}
+
+const { quote, attribution, variant = 'teal' } = Astro.props;
+---
+
+<blockquote class={`pull-quote pull-quote--${variant}`}>
+  <p class="pull-quote__text">{quote}</p>
+  {attribution && (
+    <cite class="pull-quote__cite">— {attribution}</cite>
+  )}
+</blockquote>
+
+<style>
+  .pull-quote {
+    margin: var(--space-10) 0;
+    padding-left: var(--space-6);
+    border-left: 3px solid;
+  }
+
+  .pull-quote--teal {
+    border-color: var(--color-teal);
+  }
+
+  .pull-quote--rose {
+    border-color: var(--color-rose);
+  }
+
+  .pull-quote__text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: var(--weight-light);
+    color: var(--text-primary);
+    line-height: var(--leading-snug);
+    /* Cormorant minimum is 20px per DESIGN_DECISIONS.md §1.4 */
+  }
+
+  /*
+   * Rose variant is slightly larger to signal it as the single primary insight.
+   * Teal is the secondary pull quote treatment.
+   */
+  .pull-quote--teal .pull-quote__text {
+    font-size: 20px;
+  }
+
+  .pull-quote--rose .pull-quote__text {
+    font-size: 22px;
+  }
+
+  .pull-quote__cite {
+    display: block;
+    margin-top: var(--space-3);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    font-style: normal;
+    color: var(--text-muted);
+  }
+</style>

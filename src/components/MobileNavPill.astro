@@ -1,0 +1,258 @@
+---
+interface Props {
+  sections: Array<{ id: string; label: string }>;
+}
+
+const { sections } = Astro.props;
+---
+
+<!-- Pill — sticky, shown via IntersectionObserver once hero leaves viewport -->
+<button
+  class="case-pill"
+  data-case-pill
+  aria-expanded="false"
+  aria-controls="case-sheet"
+  aria-label="Open section navigation"
+>
+  <span class="case-pill__label">Sections</span>
+  <!-- Chevron down -->
+  <svg
+    class="case-pill__icon"
+    width="12"
+    height="12"
+    viewBox="0 0 12 12"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M2 4L6 8L10 4"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+</button>
+
+<!-- Backdrop — separate element so it can be tapped to close -->
+<div
+  class="case-sheet-backdrop"
+  data-sheet-backdrop
+  aria-hidden="true"
+></div>
+
+<!-- Bottom sheet -->
+<div
+  class="case-sheet"
+  id="case-sheet"
+  data-case-sheet
+  role="dialog"
+  aria-label="Jump to section"
+  aria-modal="true"
+  aria-hidden="true"
+>
+  <div class="case-sheet__inner">
+    <div class="case-sheet__header">
+      <p class="case-sheet__heading">Jump to section</p>
+      <button
+        class="case-sheet__close"
+        data-sheet-close
+        aria-label="Close section navigation"
+      >
+        <!-- ✕ icon -->
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path
+            d="M3 3L13 13M13 3L3 13"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <ol class="case-sheet__list">
+      {sections.map((section, i) => (
+        <li class="case-sheet__item">
+          <a
+            href={`#${section.id}`}
+            class="case-sheet__link"
+            data-sheet-link
+          >
+            <span class="case-sheet__number">{String(i + 1).padStart(2, '0')}</span>
+            <span class="case-sheet__label">{section.label}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</div>
+
+<style>
+  /* ── PILL ─────────────────────────────────────── */
+  .case-pill {
+    position: fixed;
+    top: calc(var(--header-height-mobile) + var(--space-3));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    display: none; /* JS adds .visible to show */
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-5);
+    background: var(--color-deep-tide);
+    color: var(--text-dark-100);
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-medium);
+    min-height: 44px;
+    white-space: nowrap;
+    box-shadow: var(--shadow-overlay);
+  }
+
+  /* .visible applied by IntersectionObserver when hero leaves viewport */
+  .case-pill.visible {
+    display: flex;
+  }
+
+  .case-pill__icon {
+    flex-shrink: 0;
+  }
+
+  /* ── BACKDROP ─────────────────────────────────── */
+  .case-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 290;
+    /* rgba acceptable for decorative overlays — same pattern as --shadow-overlay */
+    background: rgba(28, 43, 58, 0.55);
+    display: none;
+  }
+
+  .case-sheet-backdrop.visible {
+    display: block;
+  }
+
+  /* ── SHEET ────────────────────────────────────── */
+  .case-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 300;
+    background: var(--color-deep-tide);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    display: none;
+    flex-direction: column;
+    max-height: 75vh;
+    overflow-y: auto;
+    /* No slide-in transition — Phase 3B-2 delivers functional behaviour only.
+       Phase 4 adds the sheet slide-up animation. */
+  }
+
+  .case-sheet[aria-hidden='false'] {
+    display: flex;
+  }
+
+  .case-sheet__inner {
+    padding: var(--space-4) var(--space-6) var(--space-8);
+  }
+
+  .case-sheet__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--border-dark-soft);
+  }
+
+  .case-sheet__heading {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-medium);
+    color: var(--text-dark-050);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .case-sheet__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-dark-085);
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .case-sheet__close:hover {
+    color: var(--text-dark-100);
+  }
+
+  .case-sheet__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .case-sheet__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-2);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    min-height: 44px; /* WCAG touch target */
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .case-sheet__link:hover {
+    opacity: 0.8;
+  }
+
+  .case-sheet__number {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-medium);
+    color: var(--color-teal);
+    flex-shrink: 0;
+  }
+
+  .case-sheet__label {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body);
+    font-weight: var(--weight-regular);
+    color: var(--text-dark-085);
+    line-height: var(--leading-normal);
+  }
+
+  /* ── DESKTOP: pill and sheet are not needed — sidebar takes over ─ */
+  @media (min-width: 1024px) {
+    .case-pill,
+    .case-pill.visible {
+      display: none;
+    }
+
+    .case-sheet,
+    .case-sheet[aria-hidden='false'] {
+      display: none;
+    }
+
+    .case-sheet-backdrop,
+    .case-sheet-backdrop.visible {
+      display: none;
+    }
+  }
+</style>

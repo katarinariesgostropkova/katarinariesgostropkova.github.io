@@ -1,0 +1,93 @@
+---
+interface Props {
+  meta: {
+    company: string;
+    team: string;
+    role: string;
+    timeline: string;
+  };
+}
+
+const { meta } = Astro.props;
+---
+
+<dl class="meta-table">
+  <div class="meta-table__row">
+    <dt class="meta-table__label">Company</dt>
+    <dd class="meta-table__value">{meta.company}</dd>
+  </div>
+  <div class="meta-table__row">
+    <dt class="meta-table__label">Team</dt>
+    <dd class="meta-table__value">{meta.team}</dd>
+  </div>
+  <div class="meta-table__row">
+    <dt class="meta-table__label">My role</dt>
+    <dd class="meta-table__value">{meta.role}</dd>
+  </div>
+  <div class="meta-table__row">
+    <dt class="meta-table__label">Timeline</dt>
+    <dd class="meta-table__value">{meta.timeline}</dd>
+  </div>
+</dl>
+
+<style>
+  .meta-table {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--space-8);
+    row-gap: var(--space-3);
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    margin: var(--space-10) 0;
+  }
+
+  /* display: contents lets each row's dt/dd participate in the parent grid */
+  .meta-table__row {
+    display: contents;
+  }
+
+  .meta-table__label {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-medium);
+    color: var(--color-teal);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    white-space: nowrap;
+    /* margin: 0 resets browser dl default */
+    margin: 0;
+    padding-top: 2px; /* optical baseline alignment with value text */
+  }
+
+  .meta-table__value {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body);
+    font-weight: var(--weight-regular);
+    color: var(--text-primary);
+    line-height: var(--leading-normal);
+    margin: 0;
+  }
+
+  /* ≤600px: label sits above value */
+  @media (max-width: 600px) {
+    .meta-table {
+      grid-template-columns: 1fr;
+      row-gap: 0;
+    }
+
+    .meta-table__row {
+      display: block;
+      margin-bottom: var(--space-4);
+    }
+
+    .meta-table__row:last-child {
+      margin-bottom: 0;
+    }
+
+    .meta-table__label {
+      display: block;
+      margin-bottom: var(--space-1);
+    }
+  }
+</style>
