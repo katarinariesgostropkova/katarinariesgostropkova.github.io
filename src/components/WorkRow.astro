@@ -10,8 +10,9 @@ interface Props {
   ctaHref: string;
   locked?: boolean;
   thumbnail?: {
-    src: string;
-    alt: string;
+    mode?: 'image' | 'locked';
+    src?: string;
+    alt?: string;
   };
 }
 

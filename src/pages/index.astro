@@ -3,7 +3,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import ImpactStrip from '../components/ImpactStrip.astro';
 import WorkRow from '../components/WorkRow.astro';
-import { homepageWork } from '../data/work.js';
+import { work } from '../data/work.js';
+
+// Composite locked row — represents all three NDA case studies.
+// Intentionally inlined here rather than stored in work.js; work.js holds
+// the four individual cases used by /work. Copy from src/content/copy.md §02.
+const compositeRow = {
+  title: 'Featured Projects: Evidence-Based Design',
+  meta: 'Avast · Oracle NetSuite',
+  tags: ['UX Research', 'Enterprise ERP'],
+  excerpt:
+    'Three research projects from enterprise UX — covering design systems, parental controls and list interfaces. Protected by NDA.',
+  ctaLabel: 'Request access →',
+  ctaHref: '#',
+  private: true,
+};
 ---
 
 <BaseLayout title="Katarina Riesgo Stropkova — Research-Led Product Designer">
@@ -21,18 +35,26 @@ import { homepageWork } from '../data/work.js';
         A few things I've worked on
       </h2>
 
-      {homepageWork.map((project) => (
-        <WorkRow
-          title={project.title}
-          meta={project.meta}
-          tags={project.tags}
-          excerpt={project.excerpt}
-          ctaLabel={project.ctaLabel}
-          ctaHref={project.ctaHref}
-          locked={project.private}
-          thumbnail={project.thumbnail}
-        />
-      ))}
+      <WorkRow
+        title={work[0].title}
+        meta={work[0].meta}
+        tags={work[0].tags}
+        excerpt={work[0].excerpt}
+        ctaLabel={work[0].ctaLabel}
+        ctaHref={work[0].ctaHref}
+        locked={work[0].private}
+        thumbnail={work[0].thumbnail}
+      />
+
+      <WorkRow
+        title={compositeRow.title}
+        meta={compositeRow.meta}
+        tags={compositeRow.tags}
+        excerpt={compositeRow.excerpt}
+        ctaLabel={compositeRow.ctaLabel}
+        ctaHref={compositeRow.ctaHref}
+        locked={compositeRow.private}
+      />
     </div>
   </section>
 </BaseLayout>
