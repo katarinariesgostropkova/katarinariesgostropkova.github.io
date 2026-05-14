@@ -1,0 +1,179 @@
+---
+import WorkCardThumbnail from './WorkCardThumbnail.astro';
+
+interface Props {
+  title: string;
+  meta: string;
+  tags: string[];
+  excerpt: string;
+  ctaLabel: string;
+  ctaHref: string;
+  locked?: boolean;
+  thumbnail?: {
+    src: string;
+    alt: string;
+  };
+}
+
+const {
+  title,
+  meta,
+  tags,
+  excerpt,
+  ctaLabel,
+  ctaHref,
+  locked = false,
+  thumbnail,
+} = Astro.props;
+---
+
+<article
+  class={`work-row ${locked ? 'work-row--locked' : ''}`}
+  data-card={locked ? 'locked' : 'rose'}
+>
+  {!locked && (
+    <span class="work-row__accent" data-card-accent="rose" aria-hidden="true"></span>
+  )}
+
+  <div class="work-row__thumb">
+    <WorkCardThumbnail
+      mode={locked ? 'locked' : 'image'}
+      src={thumbnail?.src}
+      alt={thumbnail?.alt}
+    />
+  </div>
+
+  <div class="work-row__content">
+    <h3 class="work-row__title">{title}</h3>
+    <p class="work-row__meta">{meta}</p>
+
+    <ul class="work-row__tags">
+      {tags.map((tag) => (
+        <li class={`work-row__tag ${locked ? 'work-row__tag--slate' : 'work-row__tag--teal'}`}>
+          {tag}
+        </li>
+      ))}
+    </ul>
+
+    <p class="work-row__excerpt">{excerpt}</p>
+
+    <a
+      href={ctaHref}
+      class={`btn ${locked ? 'btn--ghost' : 'btn--rose'} work-row__cta`}
+    >
+      {ctaLabel}
+    </a>
+  </div>
+</article>
+
+<style>
+  .work-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--space-12);
+    align-items: center;
+    padding: var(--space-10) 0;
+    border-bottom: 0.5px solid rgba(28, 43, 58, 0.08);
+  }
+
+  .work-row:last-of-type {
+    border-bottom: none;
+  }
+
+  /* Left rose accent — open rows only.
+     scaleY hover animation deferred to phase ⑥. */
+  .work-row__accent {
+    position: absolute;
+    left: 0;
+    top: var(--space-10);
+    bottom: var(--space-10);
+    width: 3px;
+    background: var(--color-rose);
+    transform-origin: top center;
+  }
+
+  .work-row__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .work-row__title {
+    /* 20px is a spec exception: Cormorant 300 20px per DESIGN_SYSTEM.md §10.
+       Sits between --font-size-meta (12px) and --font-size-section (28px).
+       Not introducing a new token — documented deviation. */
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: var(--weight-light);
+    color: var(--text-primary);
+    line-height: var(--leading-snug);
+    margin: 0;
+  }
+
+  .work-row--locked .work-row__title {
+    color: var(--text-muted);
+  }
+
+  .work-row__meta {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .work-row__tags {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-1) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .work-row__tag {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    letter-spacing: var(--tracking-normal);
+  }
+
+  .work-row__tag--teal {
+    background: var(--tag-teal-bg);
+    color: var(--tag-teal-text);
+  }
+
+  .work-row__tag--slate {
+    background: var(--tag-slate-bg);
+    color: var(--tag-slate-text);
+  }
+
+  .work-row__excerpt {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body);
+    font-weight: var(--weight-regular);
+    color: var(--text-body);
+    line-height: var(--leading-normal);
+    margin: var(--space-2) 0 var(--space-4);
+  }
+
+  .work-row__cta {
+    align-self: flex-start;
+  }
+
+  @media (max-width: 767px) {
+    .work-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+      padding: var(--space-8) 0;
+    }
+
+    .work-row__accent {
+      top: var(--space-8);
+      bottom: var(--space-8);
+    }
+  }
+</style>

@@ -92,7 +92,7 @@ Button: "Explore →"
 
 LOCKED CARD — REPRESENTS ALL THREE NDA CASE STUDIES
 Tags: UX Research · Enterprise ERP
-Title: Seven years of research and design work
+Title: Featured Projects: Evidence-Based Design
 Meta: Avast · Oracle NetSuite
 Description: Three research projects from enterprise UX — covering design systems, parental controls and list interfaces. Protected by NDA.
 Button: "Request access →"

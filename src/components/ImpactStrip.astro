@@ -1,0 +1,153 @@
+---
+// ImpactStrip — linen-background band below Hero.
+// Unit 1 (7) and Unit 2 (1) carry data-count for animation ⑤ (impact-counter.js, future phase).
+// Unit 3 (MA) carries data-impact-static — signals no count-up.
+// Research → Roadmap pill removed per designer resolution (Phase 2B).
+// Decorative SVG arc removed; replaced with two teal hairlines via ::before / ::after.
+---
+
+<section
+  class="impact-strip"
+  data-impact-strip
+  aria-label="Career and credentials at a glance"
+>
+  <div class="impact-strip__inner">
+
+    <div class="impact-strip__units">
+
+      <div class="impact-unit">
+        <span class="impact-unit__number" data-count="7">7</span>
+        <span class="impact-unit__label">YRS</span>
+        <span class="impact-unit__desc">
+          UX research across consumer cybersecurity and enterprise ERP
+        </span>
+      </div>
+
+      <div class="impact-unit">
+        <span
+          class="impact-unit__number impact-unit__number--teal"
+          data-count="1"
+        >1</span>
+        <span class="impact-unit__label">SHIPPED PRODUCT</span>
+        <span class="impact-unit__desc">
+          Designed, built and launched — solo
+        </span>
+      </div>
+
+      <div class="impact-unit">
+        <span
+          class="impact-unit__number impact-unit__number--rose"
+          data-impact-static="MA"
+        >MA</span>
+        <span class="impact-unit__label">
+          COGNITION &amp; COMMUNICATION
+        </span>
+        <span class="impact-unit__desc">University of Copenhagen</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .impact-strip {
+    background: var(--color-linen);
+    padding: var(--space-12) 0;
+    position: relative;
+  }
+
+  /* Teal hairlines — top and bottom of strip */
+  .impact-strip::before,
+  .impact-strip::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0.5px;
+    background: rgba(43, 165, 165, 0.20);
+  }
+
+  .impact-strip::before { top: 0; }
+  .impact-strip::after  { bottom: 0; }
+
+  .impact-strip__inner {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 0 var(--padding-desktop);
+  }
+
+  /* Three-column units row */
+  .impact-strip__units {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-12);
+  }
+
+  /* Single impact unit — stacked column */
+  .impact-unit {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .impact-unit__number {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-section);
+    font-weight: var(--weight-light);
+    color: var(--text-primary);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  /* Unit 2: teal — real-world evidence, shipped product */
+  .impact-unit__number--teal { color: var(--color-teal); }
+
+  /* Unit 3: rose — academic credential (accepted contrast exception per §10 / DESIGN_DECISIONS.md §2.1) */
+  .impact-unit__number--rose { color: var(--color-rose); }
+
+  .impact-unit__label {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    color: var(--color-teal);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .impact-unit__desc {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    color: var(--text-body);
+    line-height: var(--leading-normal);
+    margin-top: var(--space-1);
+  }
+
+  /* ── RESPONSIVE ────────────────────────────────────── */
+
+  @media (max-width: 1023px) {
+    .impact-strip__inner {
+      padding: 0 var(--padding-tablet);
+    }
+
+    .impact-strip__units {
+      gap: var(--space-8);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .impact-strip {
+      padding: var(--space-10) 0;
+    }
+
+    .impact-strip__inner {
+      padding: 0 var(--padding-mobile);
+    }
+
+    .impact-strip__units {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+</style>

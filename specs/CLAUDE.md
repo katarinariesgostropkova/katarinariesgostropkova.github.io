@@ -96,9 +96,9 @@ A component is not done until ALL of the following are true:
 │   │   ├── LogoMark.astro              ← inline SVG only
 │   │   ├── CaseStudySidebar.astro      ← accepts sections[] prop
 │   │   ├── MobileNavPill.astro         ← pill + sheet + progress bar (animation ⑫)
-│   │   ├── WorkCard.astro              ← /work grid card
-│   │   ├── WorkRow.astro               ← homepage teaser row
-│   │   ├── WorkCardThumbnail.astro     ← IMAGE_TREATMENTS.md §1
+│   │   ├── WorkCard.astro              ← /work grid card (Phase 3)
+│   │   ├── WorkRow.astro               ← homepage teaser row; locked prop → locked variant
+│   │   ├── WorkCardThumbnail.astro     ← IMAGE_TREATMENTS.md §1; mode: 'image'|'locked'
 │   │   ├── InlineImage.astro           ← IMAGE_TREATMENTS.md §2
 │   │   ├── PasswordGate.astro          ← locked case studies only
 │   │   └── StatusRotator.astro
@@ -118,6 +118,8 @@ A component is not done until ALL of the following are true:
 │   │   └── notebook/
 │   │       ├── index.astro
 │   │       └── predicting-the-future-of-ux.astro
+│   ├── data/
+│   │   └── work.js                     ← homepage work teaser data; private: true → locked
 │   ├── scripts/
 │   │   ├── mark-entry.js               ← animation ①
 │   │   ├── logo-hover.js               ← animation ②
@@ -141,10 +143,15 @@ A component is not done until ALL of the following are true:
 │   └── assets/
 │       ├── mark-light.svg
 │       ├── mark-dark.svg
-│       ├── og-image.png
 │       └── images/
+│           ├── og-image.png
+│           ├── about/
+│           │   └── katarina-photo.png
 │           └── work/
-│               └── asociacion/
+│               ├── non-profit/         ← checa-hero.png · asociacion-personas.png
+│               ├── design-system/      ← rf-hero · rf-three-variants · rf-recognition-chart
+│               ├── family-space/       ← fs-hero · fs-problem-cycle · fs-psychological-values · fs-parenting-styles
+│               └── list-interface/     ← li-hero · li-redwood-ui · li-behaviour-modes · li-operational-vs-analytical
 └── CLAUDE.md                           ← this file
 ```
 

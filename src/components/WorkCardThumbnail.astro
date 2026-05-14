@@ -1,0 +1,91 @@
+---
+interface Props {
+  mode: 'image' | 'locked';
+  src?: string;
+  alt?: string;
+}
+const { mode, src, alt } = Astro.props;
+---
+
+<div class={`work-thumb work-thumb--${mode}`}>
+  {mode === 'image' && src && alt && (
+    <img src={src} alt={alt} class="work-thumb__image" loading="lazy" />
+  )}
+  {mode === 'locked' && (
+    <div class="work-thumb__chip" aria-label="Locked case study">
+      <svg
+        class="work-thumb__chip-icon"
+        width="14"
+        height="16"
+        viewBox="0 0 14 16"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <rect
+          x="2"
+          y="7"
+          width="10"
+          height="8"
+          rx="1.5"
+          fill="none"
+          stroke="rgba(247, 246, 242, 0.55)"
+          stroke-width="1"
+        />
+        <path
+          d="M4 7 V4.5 a3 3 0 0 1 6 0 V7"
+          fill="none"
+          stroke="rgba(247, 246, 242, 0.55)"
+          stroke-width="1"
+          stroke-linecap="round"
+        />
+      </svg>
+      <span class="work-thumb__chip-text">Locked</span>
+    </div>
+  )}
+</div>
+
+<style>
+  .work-thumb {
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .work-thumb--image {
+    background: var(--color-linen);
+    padding: var(--space-4);
+  }
+
+  .work-thumb__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .work-thumb--locked {
+    background: var(--color-deep-tide);
+  }
+
+  .work-thumb__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 6px 14px;
+    background: rgba(247, 246, 242, 0.08);
+    border: 0.5px solid rgba(247, 246, 242, 0.15);
+    border-radius: var(--radius-full);
+  }
+
+  .work-thumb__chip-text {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    color: rgba(247, 246, 242, 0.55);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+</style>

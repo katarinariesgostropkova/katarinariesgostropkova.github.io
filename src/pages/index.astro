@@ -1,9 +1,77 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import ImpactStrip from '../components/ImpactStrip.astro';
+import WorkRow from '../components/WorkRow.astro';
+import { homepageWork } from '../data/work.js';
 ---
 
 <BaseLayout title="Katarina Riesgo Stropkova — Research-Led Product Designer">
   <Hero />
-  <!-- Phase 2B: Impact Strip, Work teaser -->
+  <ImpactStrip />
+
+  <section
+    class="work-teaser"
+    id="work"
+    data-work-teaser
+    aria-labelledby="work-heading"
+  >
+    <div class="work-teaser__inner">
+      <h2 id="work-heading" class="work-teaser__heading">
+        A few things I've worked on
+      </h2>
+
+      {homepageWork.map((project) => (
+        <WorkRow
+          title={project.title}
+          meta={project.meta}
+          tags={project.tags}
+          excerpt={project.excerpt}
+          ctaLabel={project.ctaLabel}
+          ctaHref={project.ctaHref}
+          locked={project.private}
+          thumbnail={project.thumbnail}
+        />
+      ))}
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .work-teaser {
+    background: var(--color-canvas);
+    padding: var(--space-12) 0;
+  }
+
+  .work-teaser__inner {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 0 var(--padding-desktop);
+  }
+
+  .work-teaser__heading {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-section);
+    font-weight: var(--weight-light);
+    color: var(--text-primary);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
+    margin: 0 0 var(--space-8);
+  }
+
+  @media (max-width: 1023px) {
+    .work-teaser__inner {
+      padding: 0 var(--padding-tablet);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .work-teaser {
+      padding: var(--space-10) 0;
+    }
+
+    .work-teaser__inner {
+      padding: 0 var(--padding-mobile);
+    }
+  }
+</style>
