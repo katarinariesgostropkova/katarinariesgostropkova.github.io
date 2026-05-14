@@ -228,29 +228,23 @@ public/assets/images/work/design-system/
 
 ### 4.5 Work images — Family Space (locked)
 
+> Note (May 2026): fs-hero.png consolidates content previously
+> spread across fs-parenting-styles.png, fs-problem-cycle.png,
+> and fs-psychological-values.png. Those three files have been
+> deleted. Phase 3C Family Space case study uses fs-hero.png as
+> the single body image.
+
 ```
 public/assets/images/work/family-space/
-├── fs-hero.png                                  ✓ READY
-│   └── Hero image for the Family Space case
-│       study page — renders above the meta table
-│       (replaces the three-screen inline layout)
-│
-├── fs-problem-cycle.png                         ✓ READY
-│   └── Problem cycle diagram: one-sided product
-│       focus → absent child voice → unmet needs
-│       → low retention loop
-│
-├── fs-psychological-values.png                  ✓ READY
-│   └── Slide showing psychological values —
-│       how the product should make parents feel
-│
-└── fs-parenting-styles.png                      ✓ READY
-    └── Three parenting archetypes:
-        rules-based / values-based / ad hoc
+└── fs-hero.png                                  ✓ READY
+    └── Hero image for the Family Space case
+        study page — renders above the meta table
+        (replaces the three-screen inline layout)
 ```
 
 **Removed:** `fs-app-screen-01/02/03.png` — replaced by `fs-hero.png` above meta table.
 **Removed:** `fs-feature-matrix.png` — will not be used. No placeholder needed.
+**Removed:** `fs-parenting-styles.png`, `fs-problem-cycle.png`, `fs-psychological-values.png` — consolidated into `fs-hero.png` (May 2026).
 
 ### 4.6 Work images — List Interface (locked)
 
@@ -380,10 +374,10 @@ The label must name the exact expected filename. When the real file arrives, rep
 | About page photo | 1 | 0 | 0 | — |
 | Asociación images | 2 | 0 | 0 | — |
 | Required Field images | 3 | 0 | 0 | — |
-| Family Space images | 4 | 0 | 0 | — |
+| Family Space images | 1 | 0 | 0 | — |
 | List Interface images | 4 | 0 | 0 | — |
 | Locked card thumbnails | — | — | — | 3 |
-| **TOTAL** | **45** | **0** | **0** | **4** |
+| **TOTAL** | **42** | **0** | **0** | **4** |
 
 ### Everything is ready. No blockers.
 
@@ -401,7 +395,7 @@ The label must name the exact expected filename. When the real file arrives, rep
 ### What is blocked until assets arrive
 
 - Required Field: 2 artifact images → placeholders in place until delivered
-- Family Space: 7 artifact images → placeholders in place until delivered
+- Family Space: images delivered and consolidated into fs-hero.png (May 2026)
 - List Interface: 3 artifact images → placeholders in place until delivered
 - Brand: favicon, mark SVGs, og-image → not blocking page builds, blocking launch checklist
 

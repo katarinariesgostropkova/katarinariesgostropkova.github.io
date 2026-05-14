@@ -1,0 +1,135 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  label?: string;
+  caption?: string;
+  captionBold?: string;
+  maxWidth?: string;
+}
+
+const {
+  src,
+  alt,
+  label,
+  caption,
+  captionBold,
+  maxWidth,
+} = Astro.props;
+
+const isValid = !!src && !!alt;
+
+if (!isValid) {
+  console.warn('[InlineImage] Invalid props — component will not render', {
+    hasSrc: !!src,
+    hasAlt: !!alt,
+  });
+}
+
+const frameStyle = maxWidth
+  ? `max-width: ${maxWidth}; margin-left: auto; margin-right: auto;`
+  : '';
+---
+
+{isValid && (
+  <figure
+    class="inline-image"
+    data-inline-image
+  >
+    <div class="inline-image__frame" style={frameStyle}>
+
+      {label && (
+        <div class="inline-image__label">
+          <span class="inline-image__label-text">{label}</span>
+          <span class="inline-image__label-line" aria-hidden="true"></span>
+        </div>
+      )}
+
+      <img
+        class="inline-image__img"
+        src={src}
+        alt={alt}
+      />
+
+    </div>
+
+    {caption && (
+      <figcaption class="inline-image__caption">
+        {captionBold && (
+          <strong class="inline-image__caption-bold">{captionBold}</strong>
+        )}
+        {captionBold && ' '}
+        {caption}
+      </figcaption>
+    )}
+  </figure>
+)}
+
+<style>
+  .inline-image {
+    margin: var(--space-10) 0;
+  }
+
+  /* Linen frame — IMAGE_TREATMENTS.md §2 */
+  .inline-image__frame {
+    background: var(--color-linen);
+    border: 0.5px solid var(--color-deep-tide-08);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+
+  /* Teal eyebrow with gradient hairline */
+  .inline-image__label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .inline-image__label-text {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-medium);
+    color: var(--color-teal);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    white-space: nowrap;
+    /* Deviation: spec says 9px — using --font-size-meta (12px), 5-stop scale ceiling */
+  }
+
+  /* Gradient hairline extending to right edge of frame */
+  .inline-image__label-line {
+    flex: 1;
+    height: 0.5px;
+    background: var(--color-teal-40);
+  }
+
+  /* Image inside frame — smaller radius than outer frame */
+  .inline-image__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+  }
+
+  /* Caption — below the frame, not inside */
+  .inline-image__caption {
+    display: block;
+    margin: var(--space-3) 0 0;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    color: var(--text-muted);
+    line-height: var(--leading-normal);
+    /* Deviation: spec says Jost 300 — using Jost 400 per §3 weight rule (Jost 300 forbidden below 16px) */
+    /* Deviation: spec says line-height 1.6 — using --leading-normal (1.65) for token consistency */
+  }
+
+  /* Bold opener — color provides emphasis, not weight */
+  .inline-image__caption-bold {
+    font-weight: var(--weight-regular);
+    color: var(--text-primary);
+  }
+</style>
