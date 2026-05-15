@@ -3,7 +3,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import ImpactStrip from '../components/ImpactStrip.astro';
 import WorkRow from '../components/WorkRow.astro';
-import { work } from '../data/work.js';
+import { getCollection } from 'astro:content';
+
+const workEntries = await getCollection('work');
+const checaEntry = workEntries.find((e) => e.slug === 'non-profit');
+const checa = checaEntry ? {
+  title:    checaEntry.data.title,
+  meta:     `${checaEntry.data.meta.company} · ${checaEntry.data.meta.timeline}`,
+  tags:     checaEntry.data.tags ?? [],
+  excerpt:  checaEntry.data.description,
+  ctaLabel: 'Explore →',
+  ctaHref:  `/work/${checaEntry.slug}`,
+  locked:   false,
+  thumbnail: checaEntry.data.heroImage
+    ? { mode: 'image', src: checaEntry.data.heroImage.src, alt: checaEntry.data.heroImage.alt }
+    : { mode: 'locked' },
+} : null;
 
 // Composite locked row — represents all three NDA case studies.
 // Intentionally inlined here rather than stored in work.js; work.js holds
@@ -35,16 +50,18 @@ const compositeRow = {
         A few things I've worked on
       </h2>
 
-      <WorkRow
-        title={work[0].title}
-        meta={work[0].meta}
-        tags={work[0].tags}
-        excerpt={work[0].excerpt}
-        ctaLabel={work[0].ctaLabel}
-        ctaHref={work[0].ctaHref}
-        locked={work[0].private}
-        thumbnail={work[0].thumbnail}
-      />
+      {checa && (
+        <WorkRow
+          title={checa.title}
+          meta={checa.meta}
+          tags={checa.tags}
+          excerpt={checa.excerpt}
+          ctaLabel={checa.ctaLabel}
+          ctaHref={checa.ctaHref}
+          locked={checa.locked}
+          thumbnail={checa.thumbnail}
+        />
+      )}
 
       <WorkRow
         title={compositeRow.title}

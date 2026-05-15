@@ -1,0 +1,39 @@
+---
+// ProseBlockquote — styles markdown > blockquotes in case study body.
+// Matches PullQuote teal variant visually (left teal accent, serif italic).
+// Used via MDX components mapping in [slug].astro.
+---
+
+<blockquote class="prose-blockquote">
+  <slot />
+</blockquote>
+
+<style>
+  .prose-blockquote {
+    margin: var(--space-10) 0;
+    padding-left: var(--space-6);
+    border-left: 3px solid var(--color-teal);
+  }
+
+  /* Quote text — first <p> child */
+  .prose-blockquote :global(p:first-child) {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: var(--weight-light);
+    font-size: 20px;
+    color: var(--text-primary);
+    line-height: var(--leading-snug);
+    margin: 0;
+  }
+
+  /* Attribution — second <p> child (the "— Name" line) */
+  .prose-blockquote :global(p + p) {
+    margin-top: var(--space-3);
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+</style>
