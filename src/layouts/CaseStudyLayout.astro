@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import CaseStudyMetaTable from '../components/CaseStudyMetaTable.astro';
 import CaseStudySidebar from '../components/CaseStudySidebar.astro';
 import MobileNavPill from '../components/MobileNavPill.astro';
+import CaseCallout from '../components/CaseCallout.astro';
 
 interface Props {
   title: string;
@@ -16,6 +17,7 @@ interface Props {
     timeline: string;
   };
   sections: Array<{ id: string; label: string }>;
+  callout?: { label: string; body: string };
 }
 
 const {
@@ -25,6 +27,7 @@ const {
   heroImage,
   meta,
   sections,
+  callout,
 } = Astro.props;
 ---
 
@@ -54,6 +57,15 @@ const {
   <div class="case-meta-wrap">
     <CaseStudyMetaTable meta={meta} />
   </div>
+
+  <!-- Callout: renders between meta table and body sections when present -->
+  {callout && (
+    <div class="case-callout-wrap">
+      <CaseCallout label={callout.label} data-callout>
+        {callout.body}
+      </CaseCallout>
+    </div>
+  )}
 
   <!-- Body: sidebar (desktop) + content column -->
   <div class="case-body" data-case-study>
@@ -140,6 +152,13 @@ const {
     padding: 0 var(--padding-desktop);
   }
 
+  /* ── CALLOUT WRAPPER ─────────────────────────── */
+  .case-callout-wrap {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 0 var(--padding-desktop);
+  }
+
   /* ── BODY: sidebar + content grid ────────────── */
   .case-body {
     display: grid;
@@ -167,6 +186,7 @@ const {
   @media (max-width: 1199px) {
     .case-hero__inner,
     .case-meta-wrap,
+    .case-callout-wrap,
     .case-body {
       padding-left: var(--padding-tablet);
       padding-right: var(--padding-tablet);
@@ -185,6 +205,7 @@ const {
 
     .case-hero__inner,
     .case-meta-wrap,
+    .case-callout-wrap,
     .case-body {
       padding-left: var(--padding-mobile);
       padding-right: var(--padding-mobile);

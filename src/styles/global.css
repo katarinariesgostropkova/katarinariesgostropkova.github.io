@@ -275,3 +275,16 @@ main {
   color: var(--text-secondary);
   border-color: var(--text-secondary);
 }
+
+/* ── Scroll behaviour ────────────────────────────────────────────────────── */
+
+/* Reserve space for sticky header (and mobile pill) on anchor-link landings  */
+h2[id] {
+  scroll-margin-top: 80px; /* header-height-desktop (60px) + 20px breathing  */
+}
+
+@media (max-width: 1023px) {
+  h2[id] {
+    scroll-margin-top: 132px; /* header-mobile (56px) + gap (12px) + pill (44px) + 20px */
+  }
+}
