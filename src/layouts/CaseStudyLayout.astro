@@ -152,9 +152,10 @@ const {
   }
 
   /*
-   * Sidebar is shown here via display:grid child — the sidebar component
-   * itself has no display property that would conflict.
-   * Below 1024px, grid collapses to 1fr and sidebar hides itself.
+   * Sidebar is shown here via display:grid child.
+   * Below 1024px, grid collapses to 1fr; sidebar hides itself via
+   * display:none in CaseStudySidebar.astro (avoids Astro scoping issues
+   * with :first-child selectors targeting child component roots).
    */
 
   .case-body__content {
@@ -191,13 +192,6 @@ const {
 
     .case-body {
       grid-template-columns: 1fr;
-      /* Sidebar renders first in DOM but is hidden via its own sticky/width behaviour;
-         the JS pill+sheet takes over for section navigation */
-    }
-
-    /* Hide the sidebar column on mobile — sidebar component renders but is not visible */
-    .case-body > :first-child {
-      display: none;
     }
   }
 

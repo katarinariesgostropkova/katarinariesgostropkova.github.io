@@ -1,3 +1,7 @@
+---
+slug: 'homepage'
+title: 'Homepage copy'
+---
 MASTER CONTENT DOCUMENT
 Katarina Riesgo Stropkova — Research-led Product Designer
 Portfolio website: katarinariegostropkova.github.io

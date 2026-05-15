@@ -124,4 +124,11 @@ const { sections } = Astro.props;
   .case-sidebar__link:hover .case-sidebar__label {
     color: var(--text-secondary);
   }
+
+  /* Hidden below 1024px — mobile pill+sheet takes over navigation */
+  @media (max-width: 1023px) {
+    .case-sidebar {
+      display: none;
+    }
+  }
 </style>

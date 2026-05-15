@@ -1,0 +1,51 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<aside class="case-callout" role="note" aria-label={label}>
+  <span class="case-callout__label">{label}</span>
+  <div class="case-callout__body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .case-callout {
+    background: var(--color-linen);
+    border-left: 3px solid var(--color-rose);
+    border-radius: 12px;
+    padding: var(--space-6);
+    margin: var(--space-10) 0;
+  }
+
+  .case-callout__label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-medium);
+    color: var(--color-teal);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    margin-bottom: var(--space-3);
+  }
+
+  .case-callout__body {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: var(--weight-light);
+    color: var(--text-primary);
+    line-height: var(--leading-normal);
+  }
+
+  .case-callout__body p {
+    margin: 0;
+  }
+
+  .case-callout__body p + p {
+    margin-top: var(--space-3);
+  }
+</style>

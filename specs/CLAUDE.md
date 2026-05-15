@@ -377,14 +377,14 @@ Never use untyped `Astro.props` spread. Never use `any`.
 ```js
 // /work/asociacion
 [
-  { id: 'opening',          label: 'The Opening' },
-  { id: 'brief',            label: 'The Brief' },
-  { id: 'two-audiences',    label: 'Two Audiences, One Website' },
-  { id: 'design-decisions', label: 'The Design Decisions' },
-  { id: 'testing',          label: 'Testing Approach' },
-  { id: 'revealed',         label: 'What Testing Revealed' },
-  { id: 'stands',           label: 'Where It Stands' },
-  { id: 'looking-back',     label: 'Looking Back' },
+  { id: 'opening',        label: 'The Opening' },
+  { id: 'brief',          label: 'The Brief' },
+  { id: 'audiences',      label: 'Two Audiences, One Website' },
+  { id: 'decisions',      label: 'The Design Decisions' },
+  { id: 'testing',        label: 'Testing With Real and Synthetic Users' },
+  { id: 'findings',       label: 'What Testing Revealed' },
+  { id: 'where-it-stands', label: 'Where It Stands' },
+  { id: 'looking-back',   label: 'Looking Back' },
 ]
 
 // /work/required-field
