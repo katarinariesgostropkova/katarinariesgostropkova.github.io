@@ -1,0 +1,176 @@
+---
+title: 'Designing for the Forgotten User'
+slug: 'family-space'
+eyebrow: 'Case study'
+description: 'A parental control app used by millions had a persistent problem — the product had been designed entirely around one user while completely ignoring the other.'
+heroImage:
+  src: '/assets/images/work/family-space/fs-hero.png'
+  alt: 'Family Space — parental control app, four-panel composition showing key research observations'
+meta:
+  company: 'Avast'
+  team: '2 UX researchers, 2 UX designers, 1 service designer'
+  role: 'Research lead — methodology design, ethnographic fieldwork, synthesis, stakeholder presentation'
+  timeline: '4 months — San Francisco area fieldwork'
+sections:
+  - label: 'The Opening'
+    id: 'opening'
+  - label: 'The Research Approach'
+    id: 'approach'
+  - label: 'What We Found — and What It Changed'
+    id: 'findings'
+  - label: 'What the Research Pointed Toward'
+    id: 'direction'
+  - label: 'What Happened and Where It Landed'
+    id: 'outcome'
+  - label: 'Looking Back'
+    id: 'looking-back'
+callout:
+  label: 'What this project changed'
+  body: 'Research reframed the product problem from a feature gap to a relationship design problem — exposing that children were simultaneously the most critical users for product success and the most underrepresented voices in how the product had been shaped.'
+tags:
+  - 'Product Discovery'
+  - 'UX Research'
+categories:
+  - 'product'
+  - 'research'
+private: true
+order: 2
+status: 'Locked'
+---
+
+import SectionHeading from '../../components/SectionHeading.astro'
+import InlineImage from '../../components/InlineImage.astro'
+import PullQuote from '../../components/PullQuote.astro'
+
+<SectionHeading
+  number="01"
+  title="The Opening"
+  id="opening"
+/>
+
+Family Space was a parental control app distributed at scale through major carrier partnerships. It did what it said — location tracking, content filtering, screen time monitoring. The product existed and it worked.
+
+But something wasn't working. Users weren't staying.
+
+The initial read was that this was a feature problem. But when we started looking more carefully it became clear the issues were more entangled than that. The product had been built primarily around the monitoring functions themselves, without sustained research into how families actually experienced them on both sides. And critically — the product had been designed entirely around parents while children, the people most directly affected by it, had never meaningfully been part of the process.
+
+That's where our team came in.
+
+<InlineImage
+  src="/assets/images/work/family-space/fs-problem-cycle.png"
+  alt="Problem cycle diagram — how one-sided product focus, absent child voice, unmet needs and low retention fed each other"
+  label="Synthesis · The problem cycle"
+/>
+
+<SectionHeading
+  number="02"
+  title="The Research Approach"
+  id="approach"
+/>
+
+We came into the project after the core problem had already been identified. Our job was to understand it with enough depth and specificity to point toward a real solution.
+
+The research brief was focused primarily on parents — how families manage screen time, how parents communicate with children about online risks. Legitimate questions. But children were framed mostly as subjects to be managed rather than users with their own perspective.
+
+So before we started fieldwork we made a deliberate decision to reframe the brief. We would gather insights from both sides — parents and children — treating each as a distinct user with their own needs, motivations and relationship with the product. That adjustment shaped everything that followed.
+
+We structured the research across four stages over four months.
+
+- **Desk research and competitive landscape** — mapping existing products and drawing on research literature around children's psychology, parenting styles and family dynamics around technology.
+- **One week diary study with families** — an unfiltered window into real daily routines before we introduced our questions.
+- **In-home ethnographic visits in the San Francisco area** — sitting inside real homes, observing how technology actually lived in those spaces and what the tensions looked and felt like in real time.
+- **User study testing a newly designed prototype** — bringing the conceptual direction back to real users before decisions were locked.
+
+<SectionHeading
+  number="03"
+  title="What We Found — and What It Changed"
+  id="findings"
+/>
+
+The diary study came back with something we hadn't fully anticipated. Technology wasn't the enemy in family life. A family watching television together wasn't perceived negatively. The tension wasn't about screens — it was about connection. Screen time that excluded others, that created physical separation within the home, that replaced shared experience with parallel isolation — that's what parents described as the problem.
+
+<PullQuote
+  variant="rose"
+  quote="When we travel I am always happy because he is not gaming — he is engaged with what we are doing."
+  attribution="Mother, diary study participant"
+/>
+
+She wasn't asking for less screen time. She was asking for her son's presence.
+
+A teenager in the same study described his own habits without being prompted — an hour of screen time on school days, much longer on weekends. He was already self-regulating based on context, without any app telling him to.
+
+> "I watch movies for an hour a day during the school year. During the weekend it is really long — sometimes I spend the whole day watching something."
+>
+> — Teenager, diary study participant
+
+The in-home visits sharpened this picture considerably.
+
+We observed a dynamic that reframed how we understood the product entirely. One mother had set up screen time limits on the app so that her son's gaming would switch off automatically after a certain period. When her son came to complain, she told him — that wasn't me, look, the device says it switched off automatically.
+
+She was using the app's authority as a social buffer. Outsourcing the conflict to the technology deliberately, to protect her relationship with her child. The app wasn't functioning as a monitoring tool in that moment. It was functioning as a third party in the family relationship — absorbing the tension so she didn't have to.
+
+<InlineImage
+  src="/assets/images/work/family-space/fs-psychological-values.png"
+  alt="Psychological values — how the product should make parents feel"
+  label="Research · Psychological values"
+/>
+
+Children were navigating their own strategies too. Several teenagers described switching their devices off and on deliberately to interrupt location tracking — reclaiming moments of privacy from a system they experienced as constant surveillance.
+
+That detail matters beyond the obvious. A safety feature that can be routinely circumvented isn't delivering the safety it promises. The product was potentially giving parents a false sense of security while children had already found the workaround.
+
+Both observations were pointing at the same underlying reality. The product had been built around control. Families were trying to use it to manage something far more complex — trust, autonomy, relationship and the negotiation of growing independence.
+
+<SectionHeading
+  number="04"
+  title="What the Research Pointed Toward"
+  id="direction"
+/>
+
+### From monitoring to relationship design
+
+The findings pointed clearly in one direction. A product built entirely around parental control needed to be rethought as a product that served a family relationship — with two active participants, not one user and one subject.
+
+Three interconnected design principles emerged from the synthesis.
+
+### Flexibility over uniformity
+
+Families are not a single user type. The research identified three distinct parenting styles — rules-based parents who set firm boundaries, values-based parents who prefer to establish mutual agreements with their children, and ad hoc parents who react to situations as they arise rather than setting proactive controls. A single rigid interface couldn't serve all three. The design direction that emerged was a modular system — components that could be added, removed or adjusted based on the child's age and the family's own approach to boundaries. The product needed to adapt to the family, not the other way around.
+
+### Transparency as a trust mechanism
+
+Children were circumventing the product because they experienced it as surveillance without agency. The recommendation was to show children the same information parents could see — not equal control, but equal visibility. Transparency shifts the dynamic from covert monitoring to open agreement. That shift matters for family relationships and for product retention.
+
+### Informed admin rights
+
+Parents retain the ability to add and remove capabilities. But within a system where children can see what is being tracked and why. Authority with visibility rather than authority with invisibility.
+
+<InlineImage
+  src="/assets/images/work/family-space/fs-parenting-styles.png"
+  alt="Parenting styles — rules, values, ad hoc. Three distinct archetypes with different product needs."
+  label="Research · Three parenting styles"
+/>
+
+<SectionHeading
+  number="05"
+  title="What Happened and Where It Landed"
+  id="outcome"
+/>
+
+The findings were synthesised and presented across multiple sessions to a wider stakeholder audience. The reframing of the problem from a feature gap to a relationship design challenge was clearly received and the evidence-based principles were formally communicated to the product and design team before the project concluded.
+
+The full redesign was not implemented during my involvement with the project.
+
+What the research left behind was a clearly documented shift in how the product problem was understood — from a feature gap to a relationship design challenge — with a set of evidence-based design principles grounded in four months of fieldwork with real families. These principles were formally communicated to and received by the product and design team before the project paused.
+
+<SectionHeading
+  number="06"
+  title="Looking Back"
+  id="looking-back"
+/>
+
+Joining the project after the problem had already been scoped meant I was always slightly downstream of the key framing decisions. Ideally I would have been involved from the very start — not just to set the research up more effectively but to participate in shaping the product direction as it emerged rather than feeding into it after the fact.
+
+More importantly I would have built closer working relationships with the product managers and decision makers throughout the project rather than primarily engaging with them at the presentation stage. The most valuable moments in a product process are the informal ones — the conversations where directions are still fluid and evidence can genuinely shift thinking. By the time we presented formally those directions were already partially set.
+
+That's something I've taken forward. Research findings don't speak for themselves. The designer behind them has to be in the room consistently, not just at the end.
