@@ -20,7 +20,7 @@ const work = defineCollection({
     }),
     sections: z.array(
       z.object({
-        title: z.string(),
+        label: z.string(),
         id:    z.string(),
       })
     ),

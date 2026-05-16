@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import PasswordGate from '../../components/PasswordGate.astro';
 import ProseBlockquote from '../../components/ProseBlockquote.astro';
 
 export async function getStaticPaths() {
@@ -11,7 +13,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const { entry } = Astro.props;
+const { entry } = Astro.props as { entry: CollectionEntry<'work'> };
 const { Content } = await entry.render();
 ---
 
@@ -24,5 +26,6 @@ const { Content } = await entry.render();
   sections={entry.data.sections}
   callout={entry.data.callout}
 >
+  {entry.data.private && <PasswordGate slot="gate" entry={entry} />}
   <Content components={{ blockquote: ProseBlockquote }} />
 </CaseStudyLayout>

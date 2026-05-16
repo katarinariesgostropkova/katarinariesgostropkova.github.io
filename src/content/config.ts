@@ -19,6 +19,7 @@ const work = defineCollection({
     categories: z.array(z.string()).optional(),
     private: z.boolean().optional(),
     status: z.string().optional(),
+    order: z.number().optional(),
   }),
 });
 

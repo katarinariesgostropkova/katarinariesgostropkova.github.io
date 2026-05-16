@@ -1,7 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkRow from '../components/WorkRow.astro';
-import { work } from '../data/work.js';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('work');
+entries.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const work = entries.map((entry) => ({
+  title:      entry.data.title,
+  meta:       `${entry.data.meta.company} · ${entry.data.meta.timeline}`,
+  tags:       entry.data.tags ?? [],
+  excerpt:    entry.data.description,
+  ctaLabel:   entry.data.private ? 'Request access →' : 'Explore →',
+  ctaHref:    `/work/${entry.slug}`,
+  locked:     entry.data.private,
+  categories: entry.data.categories ?? [],
+  thumbnail:  entry.data.heroImage
+    ? { mode: 'image', src: entry.data.heroImage.src, alt: entry.data.heroImage.alt }
+    : { mode: 'locked' },
+}));
 ---
 
 <BaseLayout
@@ -75,7 +92,7 @@ import { work } from '../data/work.js';
               excerpt={entry.excerpt}
               ctaLabel={entry.ctaLabel}
               ctaHref={entry.ctaHref}
-              locked={entry.private}
+              locked={entry.locked}
               thumbnail={entry.thumbnail}
             />
           </div>

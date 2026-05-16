@@ -288,3 +288,37 @@ h2[id] {
     scroll-margin-top: 132px; /* header-mobile (56px) + gap (12px) + pill (44px) + 20px */
   }
 }
+
+/* ── Password gate visibility toggles ───────────────────────────────────── */
+/* NOTE: kept here (not in PasswordGate.astro) to prevent Vite's CSS         */
+/* optimizer from stripping the body-class qualifiers on component styles.   */
+
+/* Default: hide both until JS applies a body class (prevents content flash) */
+[data-password-gate],
+[data-case-content] {
+  display: none;
+}
+
+/* Locked: show gate, hide content */
+body.gate-locked [data-password-gate] {
+  display: flex;
+}
+body.gate-locked [data-case-content] {
+  display: none;
+}
+
+/* Unlocked: hide gate, show content */
+body.gate-unlocked [data-password-gate] {
+  display: none;
+}
+body.gate-unlocked [data-case-content] {
+  display: block;
+}
+
+/* Page background: Deep Tide when locked, Canvas when unlocked */
+body.gate-locked {
+  background: var(--color-deep-tide);
+}
+body.gate-unlocked {
+  background: var(--color-canvas);
+}

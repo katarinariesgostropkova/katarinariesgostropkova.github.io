@@ -33,50 +33,59 @@ const {
 
 <BaseLayout title={title} description={description}>
 
-  <!-- Hero block: eyebrow → title → description → optional image -->
-  <section class="case-hero" data-case-hero>
-    <div class="case-hero__inner">
-      <p class="case-hero__eyebrow">{eyebrow}</p>
-      <h1 class="case-hero__title">{title}</h1>
-      <p class="case-hero__description">{description}</p>
+  <!-- Gate slot: PasswordGate renders here on locked pages.
+       Hidden by default; body.gate-locked makes it visible. -->
+  <slot name="gate" />
 
-      {heroImage && (
-        <div class="case-hero__image-wrap">
-          <img
-            class="case-hero__image"
-            src={heroImage.src}
-            alt={heroImage.alt}
-            loading="eager"
-          />
-        </div>
-      )}
+  <!-- All case study content wrapped so body.gate-locked can hide it. -->
+  <div data-case-content>
+
+    <!-- Hero block: eyebrow → title → description → optional image -->
+    <section class="case-hero" data-case-hero>
+      <div class="case-hero__inner">
+        <p class="case-hero__eyebrow">{eyebrow}</p>
+        <h1 class="case-hero__title">{title}</h1>
+        <p class="case-hero__description">{description}</p>
+
+        {heroImage && (
+          <div class="case-hero__image-wrap">
+            <img
+              class="case-hero__image"
+              src={heroImage.src}
+              alt={heroImage.alt}
+              loading="eager"
+            />
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Meta table: Company / Team / My role / Timeline -->
+    <div class="case-meta-wrap">
+      <CaseStudyMetaTable meta={meta} />
     </div>
-  </section>
 
-  <!-- Meta table: Company / Team / My role / Timeline -->
-  <div class="case-meta-wrap">
-    <CaseStudyMetaTable meta={meta} />
-  </div>
+    <!-- Callout: renders between meta table and body sections when present -->
+    {callout && (
+      <div class="case-callout-wrap">
+        <CaseCallout label={callout.label} data-callout>
+          {callout.body}
+        </CaseCallout>
+      </div>
+    )}
 
-  <!-- Callout: renders between meta table and body sections when present -->
-  {callout && (
-    <div class="case-callout-wrap">
-      <CaseCallout label={callout.label} data-callout>
-        {callout.body}
-      </CaseCallout>
+    <!-- Body: sidebar (desktop) + content column -->
+    <div class="case-body" data-case-study>
+      <CaseStudySidebar sections={sections} />
+      <article class="case-body__content">
+        <slot />
+      </article>
     </div>
-  )}
 
-  <!-- Body: sidebar (desktop) + content column -->
-  <div class="case-body" data-case-study>
-    <CaseStudySidebar sections={sections} />
-    <article class="case-body__content">
-      <slot />
-    </article>
-  </div>
+    <!-- Mobile pill + sheet: hidden on desktop, sidebar takes over -->
+    <MobileNavPill sections={sections} />
 
-  <!-- Mobile pill + sheet: hidden on desktop, sidebar takes over -->
-  <MobileNavPill sections={sections} />
+  </div><!-- /data-case-content -->
 
 </BaseLayout>
 
