@@ -188,11 +188,11 @@ Apply `.logo-mark--dark` on the `<LogoMark>` component instance inside `Footer.a
 
 ```
 public/assets/images/about/
-└── katarina-photo.jpg                           ✓ READY — confirmed provided
+└── katarina-photo.png                           ✓ READY — confirmed provided
 ```
 
-Rename rule: whatever filename the photo arrives as → rename to `katarina-photo.jpg`.
-Export spec: portrait crop, aspect-ratio 3/4, minimum 800px wide. WebP export alongside JPEG.
+Rename rule: whatever filename the photo arrives as → rename to `katarina-photo.png`.
+Export spec: portrait crop, aspect-ratio 3/4, minimum 800px wide. WebP export alongside PNG.
 
 ### 4.3 Work images — Asociación (open case study)
 

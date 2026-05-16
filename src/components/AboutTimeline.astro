@@ -1,0 +1,122 @@
+---
+interface Props {
+  entries: Array<{
+    dates: string;
+    role: string;
+    institution: string;
+    dotColor: 'rose' | 'teal';
+  }>;
+}
+
+const { entries } = Astro.props;
+---
+
+<section class="timeline" data-about-timeline aria-label="Career timeline">
+  <h2 class="timeline__heading">The Path Here</h2>
+
+  <div class="timeline__track">
+    <div class="timeline__line" aria-hidden="true"></div>
+
+    {entries.map((entry) => (
+      <div class="timeline__entry" data-timeline-entry>
+        <div
+          class:list={['timeline__dot', `timeline__dot--${entry.dotColor}`]}
+          aria-hidden="true"
+        ></div>
+        <div class="timeline__content">
+          <span class="timeline__dates">{entry.dates}</span>
+          <span class="timeline__role">{entry.role}</span>
+          <span class="timeline__institution">{entry.institution}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+.timeline {
+  padding: var(--space-16) 0;
+}
+
+.timeline__heading {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-light);
+  font-size: var(--font-size-section);
+  color: var(--text-primary);
+  margin-bottom: var(--space-12);
+}
+
+.timeline__track {
+  position: relative;
+  padding-left: var(--space-8);
+}
+
+.timeline__line {
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 0.5px;
+  background: rgba(28, 43, 58, 0.10);
+}
+
+.timeline__entry {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  padding-bottom: var(--space-10);
+}
+
+.timeline__entry:last-child {
+  padding-bottom: 0;
+}
+
+.timeline__dot {
+  position: absolute;
+  left: calc(-1 * var(--space-8) + 0px);
+  top: 4px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.timeline__dot--rose {
+  background: var(--color-rose);
+}
+
+.timeline__dot--teal {
+  background: var(--color-teal);
+}
+
+.timeline__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.timeline__dates {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  font-size: var(--font-size-meta);
+  color: var(--color-teal);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.timeline__role {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-light);
+  font-size: 20px;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.timeline__institution {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--font-size-body);
+  color: var(--text-body);
+}
+</style>

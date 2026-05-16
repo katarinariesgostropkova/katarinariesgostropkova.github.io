@@ -1,0 +1,355 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AboutTimeline from '../components/AboutTimeline.astro';
+import RecommendationCard from '../components/RecommendationCard.astro';
+
+const entries = await getCollection('about');
+const entry = entries[0];
+const d = entry.data;
+---
+
+<BaseLayout
+  title="About — Katarina Riesgo Stropkova"
+  description="Research-Led Product Designer with seven years of behavioural research behind her. The story, the path, and the work."
+>
+
+  <!-- ① Hero -->
+  <section class="about-hero" data-about-hero>
+    <div class="about-hero__inner container">
+
+      <div class="about-hero__content">
+        <h1 class="about-hero__headline">
+          {d.heroHeadline.replace('people.', '')}
+          <em class="about-hero__italic">people.</em>
+        </h1>
+        <p class="about-hero__body">{d.heroBody}</p>
+      </div>
+
+      <div class="about-hero__photo-wrap">
+        <div class="about-hero__frame">
+          <img
+            src={d.heroPhoto.src}
+            alt={d.heroPhoto.alt}
+            class="about-hero__photo"
+            width="720"
+            height="960"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ② Timeline -->
+  <section class="about-timeline-section">
+    <div class="container">
+      <AboutTimeline entries={d.timelineEntries} />
+    </div>
+  </section>
+
+  <!-- ③ Story paragraphs -->
+  <section class="about-story" data-about-story>
+    <div class="container">
+      <div class="about-story__grid">
+        {d.storyColumns.map((col) => (
+          <div class="about-story__col">
+            <p class="about-story__eyebrow">{col.eyebrow}</p>
+            <p class="about-story__body">{col.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ Mid-page CTA -->
+  <section class="about-mid-cta">
+    <div class="container">
+      <p class="about-mid-cta__text">
+        <em>{d.midCtaText}</em>
+      </p>
+      <a href={d.midCtaHref} class="btn btn--rose about-mid-cta__btn">
+        {d.midCtaLabel}
+      </a>
+    </div>
+  </section>
+
+  <!-- ⑤ Recommendations -->
+  <section class="about-recs" data-recommendations>
+    <div class="container">
+      <h2 class="about-recs__heading">From People I've Worked With</h2>
+      <div class="about-recs__grid">
+        {d.recommendations.map((rec) => (
+          <RecommendationCard
+            state={rec.state}
+            name={rec.name}
+            initials={rec.initials}
+            subtitle={rec.subtitle}
+            trait={rec.trait}
+            quote={rec.quote}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑥ Bottom CTA -->
+  <section class="about-bottom-cta">
+    <div class="container">
+      <h2 class="about-bottom-cta__heading">{d.bottomCtaHeading}</h2>
+      <p class="about-bottom-cta__body">{d.bottomCtaBody}</p>
+      <a
+        href={d.bottomCtaHref}
+        class="btn btn--ghost about-bottom-cta__btn"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Connect on LinkedIn (opens in new tab)"
+      >
+        {d.bottomCtaLabel}
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+/* ─── Shared ─── */
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--padding-mobile);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: var(--padding-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: var(--padding-desktop);
+  }
+}
+
+/* ─── Hero ─── */
+.about-hero {
+  background: var(--color-canvas);
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-12);
+}
+
+.about-hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+@media (min-width: 768px) {
+  .about-hero__inner {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-12);
+  }
+
+  .about-hero__content {
+    flex: 0 0 60%;
+  }
+
+  .about-hero__photo-wrap {
+    flex: 0 0 40%;
+  }
+}
+
+.about-hero__headline {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-light);
+  font-size: var(--font-size-section);
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .about-hero__headline {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-hero__headline {
+    font-size: 40px;
+  }
+}
+
+.about-hero__italic {
+  font-style: italic;
+  color: var(--color-teal);
+}
+
+.about-hero__body {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--font-size-subhead);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+  margin: 0;
+}
+
+/* Photo frame — linen treatment per IMAGE_TREATMENTS §1 */
+.about-hero__frame {
+  background: var(--color-linen);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  max-width: 360px;
+}
+
+@media (max-width: 767px) {
+  .about-hero__frame {
+    max-width: 100%;
+  }
+}
+
+.about-hero__photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--radius-md);
+}
+
+/* ─── Timeline section wrapper ─── */
+.about-timeline-section {
+  background: var(--color-canvas);
+}
+
+/* ─── Story ─── */
+.about-story {
+  padding: var(--space-16) 0;
+  background: var(--color-canvas);
+}
+
+.about-story__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+}
+
+@media (min-width: 1024px) {
+  .about-story__grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-8);
+  }
+}
+
+.about-story__eyebrow {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  font-size: var(--font-size-meta);
+  color: var(--color-teal);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+  margin-top: 0;
+}
+
+.about-story__body {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--font-size-subhead);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+  margin: 0;
+}
+
+/* ─── Mid-page CTA ─── */
+.about-mid-cta {
+  padding: var(--space-12) 0;
+  background: var(--color-canvas);
+}
+
+.about-mid-cta .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-6);
+}
+
+.about-mid-cta__text {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-light);
+  font-size: var(--font-size-section);
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ─── Recommendations ─── */
+.about-recs {
+  padding: var(--space-16) 0;
+  background: var(--color-canvas);
+}
+
+.about-recs__heading {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-light);
+  font-size: var(--font-size-section);
+  color: var(--text-primary);
+  margin-bottom: var(--space-10);
+}
+
+.about-recs__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .about-recs__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-recs__grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* ─── Bottom CTA ─── */
+.about-bottom-cta {
+  padding: var(--space-16) 0;
+  background: var(--color-canvas);
+}
+
+.about-bottom-cta .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-6);
+}
+
+.about-bottom-cta__heading {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-light);
+  font-size: var(--font-size-section);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.about-bottom-cta__body {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--font-size-body);
+  color: var(--text-body);
+  max-width: 540px;
+  line-height: var(--leading-normal);
+  margin: 0;
+}
+
+</style>

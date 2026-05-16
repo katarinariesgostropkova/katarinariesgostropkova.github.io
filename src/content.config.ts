@@ -44,4 +44,40 @@ const homepage = defineCollection({
   }),
 });
 
-export const collections = { work, homepage };
+const about = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/about' }),
+  schema: z.object({
+    title:         z.string(),
+    slug:          z.string(),
+    heroHeadline:  z.string(),
+    heroBody:      z.string(),
+    heroPhoto:     z.object({ src: z.string(), alt: z.string() }),
+    timelineEntries: z.array(z.object({
+      dates:       z.string(),
+      role:        z.string(),
+      institution: z.string(),
+      dotColor:    z.enum(['rose', 'teal']),
+    })),
+    storyColumns:  z.array(z.object({
+      eyebrow:     z.string(),
+      body:        z.string(),
+    })),
+    midCtaText:    z.string(),
+    midCtaLabel:   z.string(),
+    midCtaHref:    z.string(),
+    recommendations: z.array(z.object({
+      state:       z.enum(['live', 'placeholder']),
+      name:        z.string().optional(),
+      initials:    z.string().optional(),
+      subtitle:    z.string().optional(),
+      trait:       z.string().optional(),
+      quote:       z.string().optional(),
+    })),
+    bottomCtaHeading: z.string(),
+    bottomCtaBody:    z.string(),
+    bottomCtaLabel:   z.string(),
+    bottomCtaHref:    z.string(),
+  }),
+});
+
+export const collections = { work, homepage, about };
