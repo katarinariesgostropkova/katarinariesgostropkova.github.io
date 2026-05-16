@@ -4,8 +4,8 @@ slug: "main"
 heroHeadline: "My story didn't start with Figma. It started with people."
 heroBody: "Studying Sociology and Media, I became obsessed with how humans make sense of the world — how we build trust, navigate complexity, and decide what to do next."
 heroPhoto:
-  src: "/assets/images/about/katarina-photo.png"
-  alt: "Katarina Riesgo Stropkova"
+  src: "/assets/images/about/katarina-photo-fixed.png"
+  alt: "Katarina"
 timelineEntries:
   - dates: "2011–2014"
     role: "BA Sociology & Media"

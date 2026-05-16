@@ -11,112 +11,187 @@ interface Props {
 const { entries } = Astro.props;
 ---
 
-<section class="timeline" data-about-timeline aria-label="Career timeline">
-  <h2 class="timeline__heading">The Path Here</h2>
+<section
+  class="timeline-section"
+  aria-labelledby="timeline-heading"
+  data-about-timeline
+>
+  <div class="timeline-section__inner">
+    <h2 id="timeline-heading" class="timeline-section__heading">
+      The Path Here
+    </h2>
 
-  <div class="timeline__track">
-    <div class="timeline__line" aria-hidden="true"></div>
-
-    {entries.map((entry) => (
-      <div class="timeline__entry" data-timeline-entry>
-        <div
-          class:list={['timeline__dot', `timeline__dot--${entry.dotColor}`]}
-          aria-hidden="true"
-        ></div>
-        <div class="timeline__content">
-          <span class="timeline__dates">{entry.dates}</span>
-          <span class="timeline__role">{entry.role}</span>
-          <span class="timeline__institution">{entry.institution}</span>
-        </div>
-      </div>
-    ))}
+    <div
+      class="timeline-scroll-wrapper"
+      role="region"
+      aria-label="Career timeline (scroll horizontally to view all entries)"
+    >
+      <ol class="timeline-track" data-timeline-track>
+        {entries.map((entry, i) => (
+          <li
+            class={`timeline-entry timeline-entry--${entry.dotColor}`}
+            data-timeline-entry
+            data-entry-index={i}
+          >
+            <span class="timeline-entry__dot" aria-hidden="true"></span>
+            <span class="timeline-entry__dates">{entry.dates}</span>
+            <h3 class="timeline-entry__role">{entry.role}</h3>
+            <p class="timeline-entry__institution">{entry.institution}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
   </div>
 </section>
 
 <style>
-.timeline {
-  padding: var(--space-16) 0;
+.timeline-section {
+  background: var(--color-canvas);
+  padding: var(--space-12) 0;
 }
 
-.timeline__heading {
+.timeline-section__inner {
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: 0 var(--padding-desktop);
+}
+
+@media (max-width: 1023px) {
+  .timeline-section__inner {
+    padding: 0 var(--padding-tablet);
+  }
+}
+
+@media (max-width: 767px) {
+  .timeline-section__inner {
+    padding: 0 var(--padding-mobile);
+  }
+}
+
+.timeline-section__heading {
   font-family: var(--font-serif);
-  font-weight: var(--weight-light);
   font-size: var(--font-size-section);
+  font-weight: var(--weight-light);
   color: var(--text-primary);
-  margin-bottom: var(--space-12);
+  margin: 0 0 var(--space-8);
 }
 
-.timeline__track {
+.timeline-scroll-wrapper {
   position: relative;
-  padding-left: var(--space-8);
+  overflow: hidden;
 }
 
-.timeline__line {
+/* Soft gradient fade on the right to signal more content */
+.timeline-scroll-wrapper::after {
+  content: '';
   position: absolute;
-  left: 5px;
-  top: 6px;
-  bottom: 6px;
-  width: 0.5px;
-  background: rgba(28, 43, 58, 0.10);
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 80px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--color-canvas) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
-.timeline__entry {
-  position: relative;
+.timeline-track {
+  list-style: none;
+  margin: 0;
+  padding: 0 80px 0 0;
   display: flex;
-  align-items: flex-start;
-  gap: var(--space-6);
-  padding-bottom: var(--space-10);
+  gap: var(--space-10);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-medium) transparent;
 }
 
-.timeline__entry:last-child {
-  padding-bottom: 0;
+.timeline-track::-webkit-scrollbar {
+  height: 4px;
 }
 
-.timeline__dot {
+.timeline-track::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.timeline-track::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 2px;
+}
+
+/* Horizontal line connecting the dots */
+.timeline-track::before {
+  content: '';
   position: absolute;
-  left: calc(-1 * var(--space-8) + 0px);
-  top: 4px;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  flex-shrink: 0;
+  top: 24px;
+  left: 0;
+  right: 80px;
+  height: 0.5px;
+  background: var(--border-medium);
+  z-index: 0;
 }
 
-.timeline__dot--rose {
+.timeline-entry {
+  flex: 0 0 240px;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  padding-top: 60px;
+}
+
+.timeline-entry__dot {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--color-canvas);
+  box-shadow: 0 0 0 0.5px var(--border-medium);
+  z-index: 1;
+}
+
+.timeline-entry--rose .timeline-entry__dot {
   background: var(--color-rose);
 }
 
-.timeline__dot--teal {
+.timeline-entry--teal .timeline-entry__dot {
   background: var(--color-teal);
 }
 
-.timeline__content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.timeline__dates {
+.timeline-entry__dates {
   font-family: var(--font-sans);
-  font-weight: var(--weight-medium);
   font-size: var(--font-size-meta);
+  font-weight: var(--weight-medium);
   color: var(--color-teal);
-  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--space-2);
 }
 
-.timeline__role {
+.timeline-entry__role {
   font-family: var(--font-serif);
-  font-weight: var(--weight-light);
   font-size: 20px;
+  font-weight: var(--weight-light);
   color: var(--text-primary);
   line-height: var(--leading-snug);
+  margin: 0 0 var(--space-1);
 }
 
-.timeline__institution {
+.timeline-entry__institution {
   font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
   font-weight: var(--weight-regular);
-  font-size: var(--font-size-body);
-  color: var(--text-body);
+  color: var(--text-muted);
+  line-height: var(--leading-normal);
+  margin: 0;
 }
 </style>

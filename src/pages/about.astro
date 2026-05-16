@@ -18,26 +18,23 @@ const d = entry.data;
   <section class="about-hero" data-about-hero>
     <div class="about-hero__inner container">
 
-      <div class="about-hero__content">
-        <h1 class="about-hero__headline">
-          {d.heroHeadline.replace('people.', '')}
-          <em class="about-hero__italic">people.</em>
-        </h1>
-        <p class="about-hero__body">{d.heroBody}</p>
+      <div class="about-hero__frame">
+        <img
+          src={d.heroPhoto.src}
+          alt={d.heroPhoto.alt}
+          class="about-hero__photo"
+          width="976"
+          height="1081"
+          loading="eager"
+        />
       </div>
 
-      <div class="about-hero__photo-wrap">
-        <div class="about-hero__frame">
-          <img
-            src={d.heroPhoto.src}
-            alt={d.heroPhoto.alt}
-            class="about-hero__photo"
-            width="720"
-            height="960"
-            loading="eager"
-          />
-        </div>
-      </div>
+      <h1 class="about-hero__headline">
+        {d.heroHeadline.replace('people.', '')}
+        <em class="about-hero__italic">people.</em>
+      </h1>
+
+      <p class="about-hero__body">{d.heroBody}</p>
 
     </div>
   </section>
@@ -143,43 +140,40 @@ const d = entry.data;
 .about-hero__inner {
   display: flex;
   flex-direction: column;
-  gap: var(--space-10);
+  align-items: center;
+  text-align: center;
 }
 
-@media (min-width: 768px) {
-  .about-hero__inner {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--space-12);
-  }
+/* Photo frame — linen treatment per IMAGE_TREATMENTS §1 */
+.about-hero__frame {
+  background: var(--color-linen);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 180px;
+  margin: 0 auto var(--space-8);
+}
 
-  .about-hero__content {
-    flex: 0 0 60%;
-  }
-
-  .about-hero__photo-wrap {
-    flex: 0 0 40%;
-  }
+.about-hero__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
 }
 
 .about-hero__headline {
   font-family: var(--font-serif);
   font-weight: var(--weight-light);
-  font-size: var(--font-size-section);
+  font-size: 36px;
   color: var(--text-primary);
   line-height: var(--leading-snug);
-  margin-bottom: var(--space-6);
+  text-align: center;
+  margin: 0 0 var(--space-4);
 }
 
 @media (min-width: 768px) {
   .about-hero__headline {
-    font-size: 36px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .about-hero__headline {
-    font-size: 40px;
+    font-size: 52px;
   }
 }
 
@@ -194,30 +188,9 @@ const d = entry.data;
   font-size: var(--font-size-subhead);
   color: var(--text-secondary);
   line-height: var(--leading-normal);
-  margin: 0;
-}
-
-/* Photo frame — linen treatment per IMAGE_TREATMENTS §1 */
-.about-hero__frame {
-  background: var(--color-linen);
-  padding: var(--space-6);
-  border-radius: var(--radius-md);
-  max-width: 360px;
-}
-
-@media (max-width: 767px) {
-  .about-hero__frame {
-    max-width: 100%;
-  }
-}
-
-.about-hero__photo {
-  display: block;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: center top;
-  border-radius: var(--radius-md);
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 /* ─── Timeline section wrapper ─── */
