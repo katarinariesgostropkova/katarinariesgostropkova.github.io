@@ -44,6 +44,25 @@ const homepage = defineCollection({
   }),
 });
 
+const notebook = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/notebook' }),
+  schema: z.object({
+    title:         z.string(),
+    subtitle:      z.string().optional(),
+    pubDate:       z.date(),
+    tags:          z.array(z.string()).optional(),
+    category:      z.string().optional(),
+    isPlaceholder: z.boolean().optional().default(false),
+    sections: z.array(
+      z.object({
+        label: z.string(),
+        id:    z.string(),
+      })
+    ).optional(),
+    description:   z.string().optional(),
+  }),
+});
+
 const about = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/about' }),
   schema: z.object({
@@ -80,4 +99,4 @@ const about = defineCollection({
   }),
 });
 
-export const collections = { work, homepage, about };
+export const collections = { work, homepage, about, notebook };
