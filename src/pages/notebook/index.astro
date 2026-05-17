@@ -1,0 +1,359 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('notebook');
+
+// Live first, placeholders last; within each group, newest first.
+entries.sort((a, b) => {
+  const aPh = a.data.isPlaceholder ? 1 : 0;
+  const bPh = b.data.isPlaceholder ? 1 : 0;
+  if (aPh !== bPh) return aPh - bPh;
+  return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+});
+
+const dateFmt = new Intl.DateTimeFormat('en-GB', {
+  year: 'numeric',
+  month: 'long',
+});
+
+const cards = entries.map((entry) => ({
+  title:         entry.data.title,
+  subtitle:      entry.data.subtitle ?? '',
+  category:      entry.data.category ?? '',
+  pubDate:       dateFmt.format(entry.data.pubDate),
+  tags:          entry.data.tags ?? [],
+  isPlaceholder: entry.data.isPlaceholder,
+  href:          entry.data.isPlaceholder ? null : `/notebook/${entry.slug}`,
+}));
+---
+
+<BaseLayout
+  title="Notebook · Katarina Riesgo Stropkova"
+  description="Thinking out loud — articles, frameworks and observations from the field."
+>
+
+  <section class="nb-hero" aria-labelledby="nb-heading">
+    <div class="nb-hero__inner">
+
+      <p class="nb-hero__eyebrow">Writing · Experiments · Tools</p>
+
+      <h1 id="nb-heading" class="nb-hero__heading">
+        Note<em class="nb-heading__em">book</em>
+      </h1>
+
+      <p class="nb-hero__sub">
+        Thinking out loud — articles, frameworks and observations
+        from the field.
+      </p>
+
+      <div class="nb-hero__pill" aria-label="Content transparency note" role="note">
+        Original writing, proofread only. Not AI-generated.
+      </div>
+
+    </div>
+  </section>
+
+  <section class="nb-list" aria-label="Article list">
+    <div class="nb-list__inner">
+
+      {cards.map((card) => (
+        card.href ? (
+          <a href={card.href} class="nb-row nb-row--live">
+            <span class="nb-row__date">{card.pubDate}</span>
+            <span class="nb-row__content">
+              <span class="nb-row__title">{card.title}</span>
+              <span class="nb-row__sub">{card.subtitle}</span>
+            </span>
+            <span class="nb-row__meta">
+              <span class="nb-tag nb-tag--article">Article</span>
+              {card.tags.filter(t => t !== 'Article').map(tag => (
+                <span class="nb-tag nb-tag--slate">{tag}</span>
+              ))}
+            </span>
+          </a>
+        ) : (
+          <div class="nb-row nb-row--placeholder" aria-hidden="true">
+            <span class="nb-row__date">Coming soon</span>
+            <span class="nb-row__content">
+              <span class="nb-row__title">More coming soon</span>
+            </span>
+            <span class="nb-row__meta"></span>
+          </div>
+        )
+      ))}
+
+    </div>
+  </section>
+
+  <section class="nb-cta" aria-label="Page footer CTA">
+    <div class="nb-cta__inner">
+      <p class="nb-cta__line">
+        The work that informed this thinking.
+      </p>
+      <a href="/work" class="btn-rose">See my work →</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── HERO ─────────────────────────────────────── */
+  .nb-hero {
+    padding: var(--space-16) 0 var(--space-12);
+    background: var(--color-canvas);
+  }
+
+  .nb-hero__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--padding-desktop);
+  }
+
+  .nb-hero__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: var(--weight-medium);
+    color: var(--color-teal);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    margin: 0 0 var(--space-4);
+  }
+
+  .nb-hero__heading {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-hero);
+    font-weight: var(--weight-light);
+    color: var(--text-primary);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    margin: 0 0 var(--space-4);
+  }
+
+  .nb-heading__em {
+    font-style: italic;
+    color: var(--color-rose);
+  }
+
+  .nb-hero__sub {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-subhead);
+    font-weight: var(--weight-regular);
+    color: var(--text-body);
+    line-height: var(--leading-normal);
+    margin: 0 0 var(--space-6);
+    max-width: 560px;
+  }
+
+  .nb-hero__pill {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-6);
+    background: var(--color-teal-08);
+    border: var(--border-hairline) var(--color-teal-40);
+    border-radius: var(--radius-full);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    color: var(--color-teal);
+  }
+
+  /* ── LIST ─────────────────────────────────────── */
+  .nb-list {
+    border-top: var(--border-hairline) var(--border-light);
+    padding: 0 0 var(--space-16);
+  }
+
+  .nb-list__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--padding-desktop);
+  }
+
+  .nb-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: var(--space-8);
+    align-items: start;
+    padding: var(--space-6) 0;
+    border-bottom: var(--border-hairline) var(--border-light);
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+  }
+
+  /* Rose left accent on hover — extends into the gutter so it reads
+     as a margin marker rather than a column rule. */
+  .nb-row--live::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--padding-desktop));
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--color-rose);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform var(--duration-moderate) var(--ease-out);
+  }
+
+  .nb-row--live:hover::before {
+    transform: scaleY(1);
+  }
+
+  .nb-row--placeholder {
+    opacity: 0.35;
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .nb-row__date {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    color: var(--text-muted);
+    padding-top: 3px;
+  }
+
+  .nb-row__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .nb-row__title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: var(--weight-light);
+    color: var(--text-primary);
+    line-height: var(--leading-snug);
+  }
+
+  .nb-row__sub {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body);
+    font-weight: var(--weight-regular);
+    color: var(--text-body);
+    line-height: var(--leading-normal);
+  }
+
+  .nb-row__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-end;
+  }
+
+  /* ── TAGS ─────────────────────────────────────── */
+  .nb-tag {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    padding: var(--tag-padding);
+    border-radius: var(--tag-radius);
+    white-space: nowrap;
+  }
+
+  .nb-tag--article {
+    background: var(--tag-rose-bg);
+    color: var(--tag-rose-text);
+  }
+
+  .nb-tag--slate {
+    background: var(--tag-slate-bg);
+    color: var(--tag-slate-text);
+  }
+
+  /* ── BOTTOM CTA ───────────────────────────────── */
+  .nb-cta {
+    padding: var(--space-16) 0;
+    background: var(--color-canvas);
+  }
+
+  .nb-cta__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--padding-desktop);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+    text-align: center;
+  }
+
+  .nb-cta__line {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-section);
+    font-weight: var(--weight-light);
+    font-style: italic;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  /* ── ROSE BUTTON ──────────────────────────────── */
+  /* Local because the global primitive is .btn--rose (BEM double-dash).
+     Kept scoped to this page so global naming stays untouched. */
+  .btn-rose {
+    background: var(--btn-rose-bg);
+    color: var(--btn-rose-text);
+    padding: var(--btn-padding-md);
+    border-radius: var(--btn-radius);
+    min-height: var(--btn-min-height);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-meta);
+    font-weight: var(--weight-regular);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .btn-rose:hover {
+    transform: translateY(-1px);
+  }
+
+  /* ── TABLET ───────────────────────────────────── */
+  @media (max-width: 1023px) {
+    .nb-hero__inner,
+    .nb-list__inner,
+    .nb-cta__inner {
+      padding-left: var(--padding-tablet);
+      padding-right: var(--padding-tablet);
+    }
+
+    .nb-row--live::before {
+      left: calc(-1 * var(--padding-tablet));
+    }
+
+    .nb-row__meta {
+      display: none;
+    }
+  }
+
+  /* ── MOBILE ───────────────────────────────────── */
+  @media (max-width: 767px) {
+    .nb-hero__inner,
+    .nb-list__inner,
+    .nb-cta__inner {
+      padding-left: var(--padding-mobile);
+      padding-right: var(--padding-mobile);
+    }
+
+    .nb-hero__heading {
+      font-size: 36px;
+    }
+
+    .nb-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+
+    .nb-row__date {
+      display: none;
+    }
+
+    .nb-row--live::before {
+      left: calc(-1 * var(--padding-mobile));
+    }
+  }
+</style>
